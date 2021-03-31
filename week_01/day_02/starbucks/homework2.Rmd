@@ -1,0 +1,36 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+#question1
+starbucks <- read_csv("starbucks_drinkMenu_expanded.csv")
+starbucks
+dim(starbucks)
+nrow(starbucks)
+ncol(starbucks)
+glimpse(starbucks)
+starbucks
+#question2 
+select (starbucks,Beverage_category, Beverage, Beverage_prep, Calories)
+arrange(starbucks, desc(Calories), na.rm = TRUE)
+#question3
+mutate(starbucks, calorie_dif =  135 - Calories )
+calorie_dif
+starbucks
+#question4
+starbucks %>% 
+  group_by(Beverage_category) %>% 
+  summarise(mean_calories = mean(Calories)) %>% 
+  arrange(mean_calories)
+
+#most is Signature Espresso Drinks	250.0000			Frappuccino® Blended Coffee	276.9444		Smoothies	282.2222
+
+#least is Coffee	4.2500			Shaken Iced Beverages	114.4444			Classic Espresso Drinks	140.1724	
+
+#question 5
+
+```
+

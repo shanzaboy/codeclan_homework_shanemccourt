@@ -1,0 +1,28 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+```{r}
+library(tidyverse)
+#question1
+starbucks <- read_csv("starbucks_drinkMenu_expanded.csv")
+starbucks
+dim(starbucks)
+nrow(starbucks)
+ncol(starbucks)
+glimpse(starbucks)
+starbucks
+#question2 
+select (starbucks,Beverage_category, Beverage, Beverage_prep, Calories)
+arrange(starbucks, desc(Calories), na.rm = TRUE)
+#question3
+mutate(starbucks, calorie_dif =  135 - Calories )
+calorie_diff
+starbucks
+#question4
+group_by(starbucks, Beverage_category)
+summarise(starbucks, beverage_category = mean(Beverage_category)
+
+
+
+
