@@ -31,6 +31,17 @@ starbucks %>%
 #least is Coffee	4.2500			Shaken Iced Beverages	114.4444			Classic Espresso Drinks	140.1724	
 
 #question 5
+starbucks %>% 
+  group_by(Beverage_prep) %>% 
+  summarise(mean_calories = mean(Calories)) %>% 
+  arrange(mean_calories)
+
+#question 6
+
+starbucks %>% 
+mean(Calories, na.rm =TRUE)
+  
+
 
 ```
 

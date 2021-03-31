@@ -217,18 +217,22 @@ pre code {
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6OSwibmNvbCI6Miwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyI5IHggMiJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUEzVlNNVy9UUUJTK0pEWElscEkycWlxRWxNSHFFakVrUzVleVdXMElRcXBVUklLVUFRbGQ3SXR6aW4zbm5NOHBaY29BQTB0K1FjdkN3c1NQZ0NGL29UczdLMXZETy9zT0paWjZsdTMzdnZmZTk5Njc5OTcwUmlmT3lFRUkxZEFlUERVTFJHUzlIZlk3cHdqdFZVR3BBR3lyL3dkd09nUkJnUWZ3MnRydzZKeFBKb1JvN1dnd3hUUEMzRmMrQ2R3enNpQUNoeVRWeGlmbkVVNVQ2cnN2MGtTUU5PVnVUMUEyU3hGYUt2TnhYK0FreVh5Zk12N3poM3RCdzZsMHp5TENBdURTV1FyUDVoQi9WQzVEZ25jcFdyc1UvNFBGcisreEtmSHBnSVlNeTB5UUIrcDRpR1M3VDNzUWN5Nm5GSHBEcUtFQXI0bnk0NzI3bWE5Yjg3V0hQMytpZjBZdnZlQjFnVStlM2QxK3VmdnF4Y2VMOW5qUjlyaFg0UE5MOEc0SmIvNXRkZnA3OWJ4MDd4YkRjWjdrSUwvN0FteWFtMzN2WTBsQ0xxNjFvUjRUekFDTXVNaEwyNkd5QmIvcUdycTZvbHZDWjdQWi9DM245TldjZEU0RE9nR1d1RHNSRUEvYWZTbmtNVThrNVF5Q3FtcEpyRkp3UlpTQS9ZeXBTb0tPUDgzWVRHMGJjbkp6Y2VwYXRyZmthcEd5dXRGVWxsbEF3a0xLekdDc0NJOUpwSlVHZEp3MzNFMWd3TkowQW1qYWxWeGk0K2Y0UERKSTNodTYvd2RvTFNUOEd3TUFBQT09In0= -->
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["Beverage_category"],"name":[1],"type":["chr"],"align":["left"]},{"label":["mean_calories"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"Coffee","2":"4.2500"},{"1":"Shaken Iced Beverages","2":"114.4444"},{"1":"Classic Espresso Drinks","2":"140.1724"},{"1":"Frappuccino® Light Blended Coffee","2":"162.5000"},{"1":"Tazo® Tea Drinks","2":"177.3077"},{"1":"Frappuccino® Blended Crème","2":"233.0769"},{"1":"Signature Espresso Drinks","2":"250.0000"},{"1":"Frappuccino® Blended Coffee","2":"276.9444"},{"1":"Smoothies","2":"282.2222"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[9]},"pages":{}}}
-  </script>
-</div>
-<!-- rnb-frame-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3RhcmJ1Y2tzICU+JSBcbm1lYW4oQ2Fsb3JpZXMsIG5hLnJtID1UUlVFKVxuXG5gYGAifQ== -->
+<pre class="r"><code>starbucks %&gt;% 
+mean(Calories, na.rm =TRUE)
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiYXJndW1lbnQgaXMgbm90IG51bWVyaWMgb3IgbG9naWNhbDogcmV0dXJuaW5nIE5BXG4ifQ== -->
+<pre><code>argument is not numeric or logical: returning NA</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIE5BXG4ifQ== -->
+<pre><code>[1] NA</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKYGBge3J9CmxpYnJhcnkodGlkeXZlcnNlKQojcXVlc3Rpb24xCnN0YXJidWNrcyA8LSByZWFkX2Nzdigic3RhcmJ1Y2tzX2RyaW5rTWVudV9leHBhbmRlZC5jc3YiKQpzdGFyYnVja3MKZGltKHN0YXJidWNrcykKbnJvdyhzdGFyYnVja3MpCm5jb2woc3RhcmJ1Y2tzKQpnbGltcHNlKHN0YXJidWNrcykKc3RhcmJ1Y2tzCiNxdWVzdGlvbjIgCnNlbGVjdCAoc3RhcmJ1Y2tzLEJldmVyYWdlX2NhdGVnb3J5LCBCZXZlcmFnZSwgQmV2ZXJhZ2VfcHJlcCwgQ2Fsb3JpZXMpCmFycmFuZ2Uoc3RhcmJ1Y2tzLCBkZXNjKENhbG9yaWVzKSwgbmEucm0gPSBUUlVFKQojcXVlc3Rpb24zCm11dGF0ZShzdGFyYnVja3MsIGNhbG9yaWVfZGlmID0gIDEzNSAtIENhbG9yaWVzICkKY2Fsb3JpZV9kaWYKc3RhcmJ1Y2tzCiNxdWVzdGlvbjQKc3RhcmJ1Y2tzICU+JSAKICBncm91cF9ieShCZXZlcmFnZV9jYXRlZ29yeSkgJT4lIAogIHN1bW1hcmlzZShtZWFuX2NhbG9yaWVzID0gbWVhbihDYWxvcmllcykpICU+JSAKICBhcnJhbmdlKG1lYW5fY2Fsb3JpZXMpCgojbW9zdCBpcyBTaWduYXR1cmUgRXNwcmVzc28gRHJpbmtzCTI1MC4wMDAwCQkJRnJhcHB1Y2Npbm/CriBCbGVuZGVkIENvZmZlZQkyNzYuOTQ0NAkJU21vb3RoaWVzCTI4Mi4yMjIyCgojbGVhc3QgaXMgQ29mZmVlCTQuMjUwMAkJCVNoYWtlbiBJY2VkIEJldmVyYWdlcwkxMTQuNDQ0NAkJCUNsYXNzaWMgRXNwcmVzc28gRHJpbmtzCTE0MC4xNzI0CQoKI3F1ZXN0aW9uIDUKCmBgYAoK</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKYGBge3J9CmxpYnJhcnkodGlkeXZlcnNlKQojcXVlc3Rpb24xCnN0YXJidWNrcyA8LSByZWFkX2Nzdigic3RhcmJ1Y2tzX2RyaW5rTWVudV9leHBhbmRlZC5jc3YiKQpzdGFyYnVja3MKZGltKHN0YXJidWNrcykKbnJvdyhzdGFyYnVja3MpCm5jb2woc3RhcmJ1Y2tzKQpnbGltcHNlKHN0YXJidWNrcykKc3RhcmJ1Y2tzCiNxdWVzdGlvbjIgCnNlbGVjdCAoc3RhcmJ1Y2tzLEJldmVyYWdlX2NhdGVnb3J5LCBCZXZlcmFnZSwgQmV2ZXJhZ2VfcHJlcCwgQ2Fsb3JpZXMpCmFycmFuZ2Uoc3RhcmJ1Y2tzLCBkZXNjKENhbG9yaWVzKSwgbmEucm0gPSBUUlVFKQojcXVlc3Rpb24zCm11dGF0ZShzdGFyYnVja3MsIGNhbG9yaWVfZGlmID0gIDEzNSAtIENhbG9yaWVzICkKY2Fsb3JpZV9kaWYKc3RhcmJ1Y2tzCiNxdWVzdGlvbjQKc3RhcmJ1Y2tzICU+JSAKICBncm91cF9ieShCZXZlcmFnZV9jYXRlZ29yeSkgJT4lIAogIHN1bW1hcmlzZShtZWFuX2NhbG9yaWVzID0gbWVhbihDYWxvcmllcykpICU+JSAKICBhcnJhbmdlKG1lYW5fY2Fsb3JpZXMpCgojbW9zdCBpcyBTaWduYXR1cmUgRXNwcmVzc28gRHJpbmtzCTI1MC4wMDAwCQkJRnJhcHB1Y2Npbm/CriBCbGVuZGVkIENvZmZlZQkyNzYuOTQ0NAkJU21vb3RoaWVzCTI4Mi4yMjIyCgojbGVhc3QgaXMgQ29mZmVlCTQuMjUwMAkJCVNoYWtlbiBJY2VkIEJldmVyYWdlcwkxMTQuNDQ0NAkJCUNsYXNzaWMgRXNwcmVzc28gRHJpbmtzCTE0MC4xNzI0CQoKI3F1ZXN0aW9uIDUKc3RhcmJ1Y2tzICU+JSAKICBncm91cF9ieShCZXZlcmFnZV9wcmVwKSAlPiUgCiAgc3VtbWFyaXNlKG1lYW5fY2Fsb3JpZXMgPSBtZWFuKENhbG9yaWVzKSkgJT4lIAogIGFycmFuZ2UobWVhbl9jYWxvcmllcykKCiNxdWVzdGlvbiA2CgpzdGFyYnVja3MgJT4lIAptZWFuKENhbG9yaWVzLCBuYS5ybSA9VFJVRSkKICAKCgpgYGAKCg==</div>
 
 
 
