@@ -1,0 +1,28 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+#setup
+library(tidyverse)
+data_movies <- read_csv("data/movies.csv") 
+data_movies
+
+```
+```{r}
+#question 1 & 2
+#import in and view the data names also the size of it and whether any columns need to be changed
+#possibly load janitor to clean the headings and see if there are any NA values
+
+data_movies
+movies_selected <- c("title", "runtime", "budget")
+
+
+```
+#question3
+```{r}
+movies_selected %>% 
+  filter(is.na(movies_selected))
+```
+

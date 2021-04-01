@@ -12,19 +12,45 @@ dim(starbucks)
 nrow(starbucks)
 ncol(starbucks)
 glimpse(starbucks)
+names(starbucks)
+#use class to find the type of column plus the $ then allows you to select the main dataset and then the appropriate column
+class(starbucks$Beverage_category)
 starbucks
 #question2 
 select (starbucks,Beverage_category, Beverage, Beverage_prep, Calories)
 arrange(starbucks, desc(Calories), na.rm = TRUE)
+
+#Answer
+drinks_content %>%
+  select(Beverage_category, Beverage, Beverage_prep, Calories) %>%
+  #
+  filter(is.na(Calories)) %>%
+  summarise(count_of_missing_calories = n())
+
+
 #question3
 mutate(starbucks, calorie_dif =  135 - Calories )
 calorie_dif
 starbucks
+
+#Answer
+drink_calories <- drinks_content %>%
+  mutate(calorie_diff = Calories - 135)
+
+
+#drink_calories <- drinks_content %>% mutate(calorie_diff = Calories - 135)
 #question4
 starbucks %>% 
   group_by(Beverage_category) %>% 
   summarise(mean_calories = mean(Calories)) %>% 
   arrange(mean_calories)
+
+#Answer
+most_calories <- drink_calories %>%
+  group_by(Beverage_category) %>%
+  summarise(mean_calories = mean(Calories)) %>%
+  arrange(desc(mean_calories)) %>%
+  head(3)
 
 #most is Signature Espresso Drinks	250.0000			Frappuccino® Blended Coffee	276.9444		Smoothies	282.2222
 
@@ -36,12 +62,48 @@ starbucks %>%
   summarise(mean_calories = mean(Calories)) %>% 
   arrange(mean_calories)
 
+#Answer
+
+average_bev_prep <- drink_calories %>%
+  group_by(Beverage_prep) %>%
+  summarise(mean_cals = mean(Calories)) %>%
+  arrange(desc(mean_cals))
+
 #question 6
 
 starbucks %>% 
-mean(Calories, na.rm =TRUE)
-  
+mean(Calories, na.rm = FALSE)
+#change to numeric then get the mean 
+#take away the calculated mean 
 
+
+#Answer
+
+# find the average calories - and we need to use pull() to be able to use the number in calculations
+avg_calories <- drink_calories %>%
+                  summarise(mean_calories = mean(Calories)) %>%
+                  
+  #use pull to pick out the number itself and use this to be a variable
+  pull()
+
+avg_calories 
+## [1] 193.8719
+# find which prep types have above average calories
+above_avg_calories <- average_bev_prep %>%
+  filter(mean_cals >= avg_calories)
+
+above_avg_calories
+  
+#Question 7
+
+#Coffee
+
+# can start by finding the drink with the lowest number of calories 
+starbucks %>%
+  group_by(Beverage_category, Beverage, Beverage_prep) %>%
+  summarise(min_calories = min(Calories)) %>%
+  arrange(min_calories) %>%
+  head(1)
 
 ```
 
