@@ -50,7 +50,7 @@ zero_num_pages
  
 #states there are 42 books that have a zero as the number of pages - need to figure out should we drop or impute - reckon we drop them but not sure how to make this conclusion.
 
-
+mutate(num_pages_imputed = 
 
 # min number of average rating  & text reviews 0?? - need to have a look at these
 #
