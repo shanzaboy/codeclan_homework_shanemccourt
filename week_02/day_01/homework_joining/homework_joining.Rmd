@@ -1,0 +1,41 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(janitor)
+```
+```{r}
+cardbase <- read_csv("data/CardBase.csv") %>% clean_names()
+customer <- read_csv("data/CustomerBase.csv") %>% clean_names()
+fraudbase <- read_csv("data/FraudBase.csv") %>% clean_names()
+transactionbase <- read_csv("data/TransactionBase.csv") %>% clean_names()
+
+
+```
+
+```{r}
+
+#expect to see 5674 because there are 5674 customer rows
+left_join(customer, cardbase, "cust_id")
+
+#strange - there are more rows - suggests there are more customers than cards - maybe not registered a new card??
+
+```
+
+```{r}
+
+full_join (fraudbase, transactionbase, "transaction_id")
+
+#row number means that the frauds are in the transactions
+
+```
+```{r}
+
+inner_join(cardbase, transactionbase, by =  c("card_number" = "credit_card_id"))
+
+#row names not the same
+```
+

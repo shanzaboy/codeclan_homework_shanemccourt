@@ -1,0 +1,38 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+```{r}
+library(tidyverse)
+```
+```{r}
+hat <-read_csv("data/hat_observations.csv")
+
+hat
+```
+```{r}
+hat_separate <- hat %>% 
+  separate(
+  observation,
+  c("hat_colour", "hat_type"),
+    sep = ",")
+
+hat_separate
+```
+```{r}
+hat_unite <- hat_separate %>% 
+  unite(date,c("day", "month", "year"), sep = "/")
+```
+```{r}
+#find date where most berets were observed.
+
+ 
+  beret <- group_by(hat_unite, hat_type) %>% 
+  group_by( date)
+
+beret
+summarise (beret, character_count = n() )
+    
+  
+```
+
