@@ -18,10 +18,10 @@ transactionbase <- read_csv("data/TransactionBase.csv") %>% clean_names()
 
 ```{r}
 
-#expect to see 5674 because there are 5674 customer rows
-left_join(customer, cardbase, "cust_id")
+#expect to see 500 because there are 500 cardbase rows
+left_join(cardbase, customer, "cust_id")
 
-#strange - there are more rows - suggests there are more customers than cards - maybe not registered a new card??
+
 
 ```
 

@@ -27,11 +27,12 @@ hat_unite <- hat_separate %>%
 #find date where most berets were observed.
 
  
-  beret <- group_by(hat_unite, hat_type) %>% 
-  group_by( date)
+ group_by(hat_unite, hat_type) %>% 
+  
+  
+ 
 
-beret
-summarise (beret, character_count = n() )
+filter(beret, max(observation))
     
   
 ```
