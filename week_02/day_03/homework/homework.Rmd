@@ -1,0 +1,42 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+Find the weather forecast for the next three days online. Create a list of lists in which each inner list should be labelled with the name of the day of the week. Each inner list should contain named elements telling you the temperature, chance of rain and wind speed.
+
+Using the list you’ve just made find:
+
+The chance of rain tomorrow
+The wind speed on the day after tomorrow
+The temperature tomorrow.
+
+```{r}
+weather <- list(
+  "Thursday" = list (rain = 100, wind = 25, temperature = 8),
+  "Friday" = list (rain = 20, wind = 12, temperature = 7),
+  "Saturday" = list (rain = 70, wind = 8, temperature = 7)
+  )
+
+weather
+```
+
+```{r}
+weather$Thursday$rain
+
+```
+```{r}
+weather$Friday$wind
+```
+
+```{r}
+weather$Thursday$temperature
+```
+
+Find a 14 day forecast online and create a matrix of the forecasts for temperature, where each week is one row and columns correspond to days.
+You will want to give a name to the matrix you create.
+
+```{r}
+
+```
+
