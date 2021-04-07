@@ -37,6 +37,29 @@ Find a 14 day forecast online and create a matrix of the forecasts for temperatu
 You will want to give a name to the matrix you create.
 
 ```{r}
+weather_matrix <- matrix(c(9, 8, 9, 9, 8, 7, 10, 11, 8, 6, 9, 10, 12, 11), nrow = 2, ncol = 7, byrow = TRUE)
 
+weather_matrix
+```
+
+```{r}
+weather_matrix[2,3]
+```
+
+
+The whole second week
+```{r}
+weather_matrix[2,1:7]
+```
+The first, third and fifth days in both weeks
+
+```{r}
+weather_matrix[, c(1, 3, 5)]
+```
+
+Write a function that pre-appends “The answer is:” to any character input, while for numeric input, it either just returns the number for numbers less than 10, or divides the number by 10 for numbers greater than 10. For anything else return “Invalid input”.
+
+```{r}
+homework <- function(x)
 ```
 
