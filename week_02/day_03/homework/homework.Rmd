@@ -60,6 +60,8 @@ weather_matrix[, c(1, 3, 5)]
 Write a function that pre-appends “The answer is:” to any character input, while for numeric input, it either just returns the number for numbers less than 10, or divides the number by 10 for numbers greater than 10. For anything else return “Invalid input”.
 
 ```{r}
-homework <- function(x)
+homework <- function(x)[
+  
+]
 ```
 
