@@ -61,4 +61,11 @@ COUNT(*)
 FROM employees 
 WHERE (pension_enrol = TRUE) AND (country != 'France' OR country != 'Germany');
 
+/*//* EXtension The corporation wants to make name badges for a forthcoming conference. Return a column badge_label showing employees’ */
+ *//*first_name and last_name joined together with their department in the following style: ‘Bob Smith - Legal’. Restrict output to only */
+/*those employees with stored first_name, last_name and department*/
 
+SELECT
+CONCAT (first_name, ' ' ,last_name, ' - ', department)
+FROM employees;
+WHERE fir
