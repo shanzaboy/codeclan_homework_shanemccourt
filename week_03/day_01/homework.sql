@@ -44,7 +44,7 @@ SELECT
 first_name,
 last_name
 FROM employees 
-ORDER BY last_name DESC NULLS LAST;
+ORDER BY last_name ASC NULLS LAST;
 
 
 /* MVP Q7 How many employees have a first_name beginning with ‘F’? */
@@ -57,9 +57,9 @@ WHERE first_name LIKE 'F%';
 /* MVP Q8 count the number of pension enrolled employees not based in either France or Germany */
 
 SELECT
-COUNT(*)
+COUNT(id)
 FROM employees 
-WHERE (pension_enrol = TRUE) AND (country != 'France' OR country != 'Germany');
+WHERE pension_enrol IS TRUE AND country NOT IN ('France', 'Germany');
 
 /*//* EXtension The corporation wants to make name badges for a forthcoming conference. Return a column badge_label showing employees’ */
  *//*first_name and last_name joined together with their department in the following style: ‘Bob Smith - Legal’. Restrict output to only */
@@ -67,5 +67,25 @@ WHERE (pension_enrol = TRUE) AND (country != 'France' OR country != 'Germany');
 
 SELECT
 CONCAT (first_name, ' ' ,last_name, ' - ', department)
-FROM employees;
-WHERE fir
+FROM employees
+WHERE first_name IS NOT NULL 
+AND last_name IS NOT NULL 
+AND department IS NOT NULL;
+
+
+SELECT
+  first_name,
+  last_name,
+  department,
+  start_date,
+  CONCAT(
+    first_name, ' ', last_name, ' - ', department, 
+    ' (joined ', EXTRACT(YEAR FROM start_date), ')'
+  ) AS badge_label
+FROM employees
+WHERE 
+  first_name IS NOT NULL AND 
+  last_name IS NOT NULL AND 
+  department IS NOT NULL AND
+  start_date IS NOT NULL;
+
