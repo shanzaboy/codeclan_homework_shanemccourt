@@ -41,13 +41,13 @@ charge_cost may be the wrong type to compare with value 80. Can you find a way t
 SELECT 
 	e.first_name,
 	e.last_name,
-	t.name as team_name,
-	e.pension_enrol AS pension_enrol 
+	t.name as team_name 
 FROM 
 	employees AS e
 INNER JOIN teams AS t
 ON e.team_id = t.id
 WHERE CAST(t.charge_cost AS INTEGER) > 80;
+
 
 /*Question 2.
 (a). Get a table of all employees details, together with their local_account_no and local_sort_code, if they have them.
@@ -78,15 +78,7 @@ ON e.team_id = t.id;
 /*Hint
 The name of the team is in the teams table, so we will need to do another join.
 
-SELECT 
-	e.first_name,
-	e.last_name,
-	t.name as team_name
-FROM 
-	employees AS e
-INNER JOIN teams AS t
-ON e.team_id = t.id
-WHERE ;
+
 
 */
 
@@ -103,13 +95,6 @@ You will need to add a group by to the table you created above.
 
 (c). Order the table above by so that the teams with the least employees come first.*/
 
-SELECT
-	COUNT(t.id) AS no_id
-FROM 
-	employees AS emp
-LEFT JOIN teams AS t
-ON emp.team_id = t.id
-GROUP BY t.id;
 
 SELECT 
 COUNT(t.id) AS no_id,
@@ -191,17 +176,8 @@ Some employees may serve in multiple committees. Can you find the number of dist
 
 
 SELECT 
-	t.id AS team_id,
-	t.name AS team_name,
-	COUNT(t.id) AS no_members,
-	t.charge_cost AS charge_cost,
-	COUNT(t.id) * CAST(t.charge_cost AS INTEGER) AS final_cost 
-FROM 
-	employees AS emp
-LEFT JOIN teams AS t
-ON emp.team_id = t.id
-GROUP BY t.id
-ORDER BY no_members;
+COUNT (DISTINCT employee_id)
+FROM employees_committees;
 
 
 
