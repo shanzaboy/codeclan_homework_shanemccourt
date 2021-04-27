@@ -70,7 +70,8 @@ Seems that there is a correlation between body_weight and backpack_weight ie hea
 backpack %>% 
   ggplot() +
   aes(x = body_weight, y = backpack_weight, colour = sex) +
-  geom_point()
+  geom_point() +
+  facet_wrap(~sex)
 ```
 
 
@@ -89,7 +90,8 @@ What proportion of students report back pain?
       x = "back problems",
       y = "count",
       title = "Proportion with and without back problems") +
-  scale_x_discrete() +
+  scale_x_continuous(breaks = c(0,1), labels = c("no", "yes")) +
+  #scale_x_continuous(breaks = c(0,1), labels = c("No", "Yes"))
   theme_minimal()
 
 ```
@@ -108,6 +110,23 @@ ggplot(backpack) +
       title = "Proportion with and without back problems") +
   scale_x_discrete() +
   theme_minimal()
+```
+2 ways to label the x axis
+
+```{r}
+
+ggplot(backpack) +
+  aes(x = back_problems) + 
+  geom_bar() +
+  scale_x_continuous(breaks = c(0,1), labels = c("No", "Yes"))
+
+
+backpack %>%
+  mutate(back_problems = as.logical(back_problems)) %>%
+ggplot() +
+  aes(x = back_problems) + 
+  geom_bar() +
+  scale_x_discrete(labels = c("No", "Yes"))
 ```
 
 Question 8.
