@@ -71,10 +71,13 @@ qb_competitors %>%
 Now the company wants to compare the number of steps that their device counts vs. their competitors. Make a line graph of the number of steps throughout time, and use faceting to compare between companies and people. The data for this is in qb_device_data.
 
 ```{r}
+qb_device_data <- 
+mutate(qb_device_data, decimal_hour = hours + (mins/60))
+
 qb_device_data %>% 
   ggplot() +
-  aes(x = hours, y = counts, group = companies) +
+  aes(x = decimal_hour, y = counts) +
   geom_line() +
-  facet_grid(~ companies)
+  facet_grid(id ~ device)
 ```
 
