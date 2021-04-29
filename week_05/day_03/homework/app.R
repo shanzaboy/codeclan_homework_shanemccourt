@@ -2,27 +2,30 @@ library(shiny)
 library(tidyverse)
 library(shinythemes)
 library(CodeClanData)
+
 all_teams <- unique(olympics_overall_medals$team)
 ui <- fluidPage(
-    theme = shinytheme("darkly"),
+    
     tags$i(tags$u(titlePanel("Olympic Medals"))),
     
     plotOutput("medal_plot"),
+    
+    DT::dataTableOutput("table_output"),
     
     
     
     tabsetPanel(
         tabPanel(
             fluidRow(
-            column(6, 
+              column(6, 
                radioButtons("season",
-                            tags$u("Summer or Winter Olympics?"),
+                            "Summer or Winter Olympics?",
                             choices = c("Summer", "Winter")
                )
         ),
-        column(6,
-               selectInput("team",
-                          tags$u("Which Team?"),
+              column(6,
+                selectInput("team",
+                          "Which Team?",
                            choices = all_teams
                )   
         )
@@ -41,14 +44,29 @@ ui <- fluidPage(
     ))
 )
 server <- function(input, output) {
+  
+  filtered_data <- reactive({
+    olympics_overall_medals %>%
+      filter(team == input$team) %>%
+      filter(season == input$season)
+  })
     output$medal_plot <- renderPlot({
-        olympics_overall_medals %>%
-            filter(team == input$team) %>%
-            filter(season == input$season) %>%
-            ggplot() +
+        
+            ggplot(filtered_data()) +
             aes(x = medal, y = count, fill = medal) +
-            theme(panel.background = element_rect(fill = "yellow")) +
-            geom_col()
+            geom_col()})
+      
+      output$table_output <-  DT::renderDataTable({
+        olympics_overall_medals %>% 
+          filter(team == input$team) %>% 
+          slice(1:10)
+         
     })
 }
 shinyApp(ui = ui, server = server)
+
+# Task - 15 mins (Optional)
+# Take our Olympic Medals app from the first lesson and
+# Add a table, which lists the counts of Gold, Silver and Bronze medals for the chosen team in the chosen season.
+# Use reactive to increase the efficiency of the app you’ve built.
+# Add an action button so the plots only update after you’ve clicked the button.
