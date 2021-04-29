@@ -5,7 +5,7 @@ library(CodeClanData)
 all_teams <- unique(olympics_overall_medals$team)
 ui <- fluidPage(
     theme = shinytheme("darkly"),
-    tags$i(titlePanel("Olympic Medals")),
+    tags$i(tags$u(titlePanel("Olympic Medals"))),
     
     plotOutput("medal_plot"),
     
@@ -14,15 +14,15 @@ ui <- fluidPage(
     tabsetPanel(
         tabPanel(
             fluidRow(
-            column(9, 
+            column(6, 
                radioButtons("season",
-                            "Summer or Winter Olympics?",
+                            tags$u("Summer or Winter Olympics?"),
                             choices = c("Summer", "Winter")
                )
         ),
-        column(3,
+        column(6,
                selectInput("team",
-                          tags$i("Which Team?"),
+                          tags$u("Which Team?"),
                            choices = all_teams
                )   
         )
@@ -47,6 +47,7 @@ server <- function(input, output) {
             filter(season == input$season) %>%
             ggplot() +
             aes(x = medal, y = count, fill = medal) +
+            theme(panel.background = element_rect(fill = "yellow")) +
             geom_col()
     })
 }
