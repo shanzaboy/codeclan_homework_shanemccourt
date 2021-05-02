@@ -5,6 +5,7 @@ library(tidyverse)
 library(shinythemes)
 library(CodeClanData)
 
+
 # read in data
 game_sales
 
@@ -15,7 +16,9 @@ pub_dist <- game_sales %>%
   distinct(publisher)
 
 
-ui <- fluidPage(
+ui <- fluidPage(theme = shinytheme("superhero"),
+                
+                
   tags$i(tags$u(titlePanel("Game sales through the years"))),
   hr(),
 
