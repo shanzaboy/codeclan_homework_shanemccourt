@@ -4,8 +4,8 @@ library(CodeClanData)
 ui <- fluidPage(
   fluidRow(
     column(6,
-           radioButtons('gender',
-                        'Male or Female Dogs?',
+           radioButtons("gender",
+                        "Male or Female Dogs?",
                         choices = c("Male", "Female"))
     ),
     column(6,
