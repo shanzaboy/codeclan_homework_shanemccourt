@@ -69,7 +69,7 @@ server <- function(input, output, session) {
     game_sales %>%
       filter(publisher == input$publisher) %>% 
       arrange(desc(sales)) %>%
-      head(10)
+      head(5)
   })
 }
 
