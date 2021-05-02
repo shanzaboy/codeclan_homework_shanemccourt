@@ -16,9 +16,8 @@ pub_dist <- game_sales %>%
   distinct(publisher)
 
 
-ui <- fluidPage(theme = shinytheme("superhero"),
-                
-                
+ui <- fluidPage(
+  theme = shinytheme("superhero"),
   tags$i(tags$u(titlePanel("Game sales through the years"))),
   hr(),
 
@@ -38,7 +37,7 @@ ui <- fluidPage(theme = shinytheme("superhero"),
   hr(),
 
 
-  # shows the top 10 sales by title for the selected publsher
+  # shows the top 10 sales by title for the selected publisher
   fluidRow(
     DT::dataTableOutput("table_output")
   )
@@ -70,7 +69,7 @@ server <- function(input, output, session) {
 
   output$table_output <- DT::renderDataTable({
     game_sales %>%
-      filter(publisher == input$publisher) %>% 
+      filter(publisher == input$publisher) %>%
       arrange(desc(sales)) %>%
       head(5)
   })
