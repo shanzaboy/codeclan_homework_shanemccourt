@@ -29,13 +29,13 @@ ui <- fluidPage(
   fluidRow(
     # bar is showing the total sales through the years in a stacked way
     column(6, plotOutput("bar")),
-    # bar2 is based on the sales for the selected publisher
+    # bar2 is based on the sales for the selected publisher by genre
     column(6, plotOutput("bar2"))
   ),
   hr(),
 
 
-  # shows the top 10 sales by title
+  # shows the top 10 sales by title for the selected publsher
   fluidRow(
     DT::dataTableOutput("table_output")
   )
@@ -60,13 +60,14 @@ server <- function(input, output, session) {
 
   output$bar2 <- renderPlot({
     ggplot(filtered_data()) +
-      aes(x = year_of_release, y = sales) +
-      geom_col(fill = "red") +
-      ggtitle(input$publisher)
+      aes(x = year_of_release, y = sales, fill = genre) +
+      geom_col() +
+      ggtitle(input$publisher, "Sales by genre")
   })
 
   output$table_output <- DT::renderDataTable({
     game_sales %>%
+      filter(publisher == input$publisher) %>% 
       arrange(desc(sales)) %>%
       head(10)
   })
