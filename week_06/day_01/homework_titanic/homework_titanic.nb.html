@@ -241,650 +241,136 @@ The following objects are masked from ‘package:base’:
 
     intersect, setdiff, union</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5gYGAifQ== -->
-<pre class="r"><code>library(tidyverse)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShndG9vbHMpXG5saWJyYXJ5KHRpZHl2ZXJzZSlcbmBgYCJ9 -->
+<pre class="r"><code>library(gtools)
+library(tidyverse)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiUmVnaXN0ZXJlZCBTMyBtZXRob2RzIG92ZXJ3cml0dGVuIGJ5ICdkYnBseXInOlxuICBtZXRob2QgICAgICAgICBmcm9tXG4gIHByaW50LnRibF9sYXp5ICAgICBcbiAgcHJpbnQudGJsX3NxbCAgICAgIFxu4pSA4pSAIEF0dGFjaGluZyBwYWNrYWdlcyDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIAgdGlkeXZlcnNlIDEuMy4wIOKUgOKUgFxu4pyTIGdncGxvdDIgMy4zLjMgICAgIOKckyBwdXJyciAgIDAuMy40XG7inJMgdGliYmxlICAzLjEuMCAgICAg4pyTIGRwbHlyICAgMS4wLjVcbuKckyB0aWR5ciAgIDEuMS4zICAgICDinJMgc3RyaW5nciAxLjQuMFxu4pyTIHJlYWRyICAgMS40LjAgICAgIOKckyBmb3JjYXRzIDAuNS4xXG7ilIDilIAgQ29uZmxpY3RzIOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgCB0aWR5dmVyc2VfY29uZmxpY3RzKCkg4pSA4pSAXG54IGRwbHlyOjpmaWx0ZXIoKSBtYXNrcyB0aW1lU2VyaWVzOjpmaWx0ZXIoKSwgc3RhdHM6OmZpbHRlcigpXG54IGRwbHlyOjpsYWcoKSAgICBtYXNrcyB0aW1lU2VyaWVzOjpsYWcoKSwgc3RhdHM6OmxhZygpXG4ifQ== -->
+<!-- rnb-output-begin eyJkYXRhIjoiUmVnaXN0ZXJlZCBTMyBtZXRob2RzIG92ZXJ3cml0dGVuIGJ5ICdkYnBseXInOlxuICBtZXRob2QgICAgICAgICBmcm9tXG4gIHByaW50LnRibF9sYXp5ICAgICBcbiAgcHJpbnQudGJsX3NxbCAgICAgIFxu4pSA4pSAIEF0dGFjaGluZyBwYWNrYWdlcyDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIAgdGlkeXZlcnNlIDEuMy4wIOKUgOKUgFxu4pyTIGdncGxvdDIgMy4zLjMgICAgIOKckyBwdXJyciAgIDAuMy40XG7inJMgdGliYmxlICAzLjEuMCAgICAg4pyTIGRwbHlyICAgMS4wLjVcbuKckyB0aWR5ciAgIDEuMS4zICAgICDinJMgc3RyaW5nciAxLjQuMFxu4pyTIHJlYWRyICAgMS40LjAgICAgIOKckyBmb3JjYXRzIDAuNS4xXG7ilIDilIAgQ29uZmxpY3RzIOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgCB0aWR5dmVyc2VfY29uZmxpY3RzKCkg4pSA4pSAXG54IGRwbHlyOjpmaWx0ZXIoKSBtYXNrcyB0aW1lU2VyaWVzOjpmaWx0ZXIoKSwgc3RhdHM6OmZpbHRlcigpXG54IGRwbHlyOjpsYWcoKSAgICBtYXNrcyB0aW1lU2VyaWVzOjpsYWcoKSwgc3RhdHM6OmxhZygpXG4ifQ== -->
 <pre><code>Registered S3 methods overwritten by &#39;dbplyr&#39;:
   method         from
   print.tbl_lazy     
   print.tbl_sql      
-── Attaching packages ──────────────────────────────── tidyverse 1.3.0 ──
+── Attaching packages ───────────────────────────────── tidyverse 1.3.0 ──
 ✓ ggplot2 3.3.3     ✓ purrr   0.3.4
 ✓ tibble  3.1.0     ✓ dplyr   1.0.5
 ✓ tidyr   1.1.3     ✓ stringr 1.4.0
 ✓ readr   1.4.0     ✓ forcats 0.5.1
-── Conflicts ─────────────────────────────────── tidyverse_conflicts() ──
+── Conflicts ──────────────────────────────────── tidyverse_conflicts() ──
 x dplyr::filter() masks timeSeries::filter(), stats::filter()
 x dplyr::lag()    masks timeSeries::lag(), stats::lag()</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShndG9vbHMpXG5cbmBgYCJ9 -->
-<pre class="r"><code>library(gtools)
-</code></pre>
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MzIsIm5jb2wiOjUsInN1bW1hcnkiOnsiQSB0aWJibGUiOlsiMzIgeCA1Il19fSwicmRmIjoiSDRzSUFBQUFBQUFBQSsxV3pWTENNQkFPL1VIb0RNaU1QZ0FuRDQ1MFJEeDRzeDBjVHVvQjBNR0RoOWhHNkZoU3BqL0FrWU1QNXFQNENEd0JOVzBTaHVRR0IwWWQwc25zOSsxdXNwdE4wN1I3TjJnWkF3TUFvQUtOUEtwT0lOQ2YrcDNHRFFDYVFraUJxTXVabkJPbms4eEtlbzMwT2pPb3pTam04QXE3SExaQ0RyVjJpR1lINTkyZHhYcHJEOUJIVytCaUI0MTNZWWM0MjhZUjkwbHZqenpmM1FPeDNjU1A5MEQrelhyRWZWSWVnMStOMUJjVS9RMElRRFd2cTlRc2V5R3JSSHRUNHEvVTMzSXNLdWVYVkg0dXFhd3h2M01tbjVsZmlmRlRKczlFUDk1dWw5TDRDeW4rL1VMUVc5MHZLa2VNUTJidk05NWo4cHJQSUZ5Y09vYmp2RGhaMnZyNmpmZGh0QzVlRDgwNXRJZjhxMUxxSmVIVW15SitMZ3BZbXJnY0JqT1RUMTRoWGNueVN0UDBXODdBeVlQUkRMalNjR0VNemZlUWpDZHNKUTA1Q2lheEYyQXlTTm04ODljL0E2R2tPRTV3bG9uYmNFWUovbWhrbFRCeU0yMFZodXNiV0tjaGxWUXFUUkhob1lkNUZYUWZ2aUdma1NwWmNiNWdjeEo2bUo5cWcyZ2pNdzVpeVAwTUovQzVKbDhiV1AwQTJNL05sZW9JQUFBPSJ9 -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["Class"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Sex"],"name":[2],"type":["chr"],"align":["left"]},{"label":["Age"],"name":[3],"type":["chr"],"align":["left"]},{"label":["Survived"],"name":[4],"type":["chr"],"align":["left"]},{"label":["n"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"1st","2":"Male","3":"Child","4":"No","5":"0"},{"1":"2nd","2":"Male","3":"Child","4":"No","5":"0"},{"1":"3rd","2":"Male","3":"Child","4":"No","5":"35"},{"1":"Crew","2":"Male","3":"Child","4":"No","5":"0"},{"1":"1st","2":"Female","3":"Child","4":"No","5":"0"},{"1":"2nd","2":"Female","3":"Child","4":"No","5":"0"},{"1":"3rd","2":"Female","3":"Child","4":"No","5":"17"},{"1":"Crew","2":"Female","3":"Child","4":"No","5":"0"},{"1":"1st","2":"Male","3":"Adult","4":"No","5":"118"},{"1":"2nd","2":"Male","3":"Adult","4":"No","5":"154"},{"1":"3rd","2":"Male","3":"Adult","4":"No","5":"387"},{"1":"Crew","2":"Male","3":"Adult","4":"No","5":"670"},{"1":"1st","2":"Female","3":"Adult","4":"No","5":"4"},{"1":"2nd","2":"Female","3":"Adult","4":"No","5":"13"},{"1":"3rd","2":"Female","3":"Adult","4":"No","5":"89"},{"1":"Crew","2":"Female","3":"Adult","4":"No","5":"3"},{"1":"1st","2":"Male","3":"Child","4":"Yes","5":"5"},{"1":"2nd","2":"Male","3":"Child","4":"Yes","5":"11"},{"1":"3rd","2":"Male","3":"Child","4":"Yes","5":"13"},{"1":"Crew","2":"Male","3":"Child","4":"Yes","5":"0"},{"1":"1st","2":"Female","3":"Child","4":"Yes","5":"1"},{"1":"2nd","2":"Female","3":"Child","4":"Yes","5":"13"},{"1":"3rd","2":"Female","3":"Child","4":"Yes","5":"14"},{"1":"Crew","2":"Female","3":"Child","4":"Yes","5":"0"},{"1":"1st","2":"Male","3":"Adult","4":"Yes","5":"57"},{"1":"2nd","2":"Male","3":"Adult","4":"Yes","5":"14"},{"1":"3rd","2":"Male","3":"Adult","4":"Yes","5":"75"},{"1":"Crew","2":"Male","3":"Adult","4":"Yes","5":"192"},{"1":"1st","2":"Female","3":"Adult","4":"Yes","5":"140"},{"1":"2nd","2":"Female","3":"Adult","4":"Yes","5":"80"},{"1":"3rd","2":"Female","3":"Adult","4":"Yes","5":"76"},{"1":"Crew","2":"Female","3":"Adult","4":"Yes","5":"20"}],"options":{"columns":{"min":{},"max":[10],"total":[5]},"rows":{"min":[10],"max":[10],"total":[32]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI2NoYW5nZSB0byBjcmV3IFRSVUUgb3IgRkFMU0VcblxudGl0YW5pYyA8LSB0aXRhbmljICU+JSBcbiAgbXV0YXRlKGNyZXcgPSBpZmVsc2UoQ2xhc3MgPT0gXCJDcmV3XCIsIFRSVUUsIEZBTFNFKSlcblxudGl0YW5pY1xuYGBgIn0= -->
+<pre class="r"><code>#change to crew TRUE or FALSE
+
+titanic &lt;- titanic %&gt;% 
+  mutate(crew = ifelse(Class == &quot;Crew&quot;, TRUE, FALSE))
+
+titanic</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MzIsIm5jb2wiOjYsInN1bW1hcnkiOnsiQSB0aWJibGUiOlsiMzIgeCA2Il19fSwicmRmIjoiSDRzSUFBQUFBQUFBQSsxV3pVN0NRQkJlK29QUUJOSkVINENUQnlPTmlJbmVoR0E0cVFkQWd3Y1BhN3RDWTltYS9nQkhEajZZaitJajhBVFViYnREM0wzQmdhaWh6WGErYjNabVozY251OVBlemJCcERBMkVrSW8wOXFvNmcwaC9HSFRyVndocENpTUZwaTZuY3M2TURoa29zbWF5VnVNZGFpT01BSjVUQjJBekFLaDFBakxiRzI5dkxPNjNkb2M5c2dFdWRzbGtHN2FQczJrY01VOTZaK3g2emc1STI0bTlhQWZrMzZ4SHpKTnk3LzlxcEQ2UjhHOUFoS3JadmtwUHE3MlFWV0ovUStMUHVYM0xidVZ5ZnBiTGoyVXVUVzUzd3VVanR5dHhmc1Rsc1dnSHovVlM4aitWNHQ4dUJIMnI5NW5MTWVlWTl3ODQ3M041c1I0aXJhZzFjVlJXU0hmT2hRS3VVenpKa21TaXRJakR5Zk53dUU1aW44d0J0a2R3dTVYNmNUQjFwd1RPWjRIQ1pXbG54VWtJVWc3OG1RV0JLcXdwQy9aSmt1UkxubzJkQmM1bkEwckR3UkcyWGdQbXo5aEtjam53M3lQWHA4eEpTZjlEZE1tNUVFZ0tNNmJwVEp5NlBZN3BXNzF4aWZMRXdFWlZPSzc5d01VOHBwTHdzWFM0NGdrZHVSUzJSUGZ3Qy9FNHFiSWxaeXUyM2dPWHdsVmpNRzFvUlg2RXdjNndmUTgwMmVMUTZodmVqOXo4ZndrQUFBPT0ifQ== -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["Class"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Sex"],"name":[2],"type":["chr"],"align":["left"]},{"label":["Age"],"name":[3],"type":["chr"],"align":["left"]},{"label":["Survived"],"name":[4],"type":["chr"],"align":["left"]},{"label":["n"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["crew"],"name":[6],"type":["lgl"],"align":["right"]}],"data":[{"1":"1st","2":"Male","3":"Child","4":"No","5":"0","6":"FALSE"},{"1":"2nd","2":"Male","3":"Child","4":"No","5":"0","6":"FALSE"},{"1":"3rd","2":"Male","3":"Child","4":"No","5":"35","6":"FALSE"},{"1":"Crew","2":"Male","3":"Child","4":"No","5":"0","6":"TRUE"},{"1":"1st","2":"Female","3":"Child","4":"No","5":"0","6":"FALSE"},{"1":"2nd","2":"Female","3":"Child","4":"No","5":"0","6":"FALSE"},{"1":"3rd","2":"Female","3":"Child","4":"No","5":"17","6":"FALSE"},{"1":"Crew","2":"Female","3":"Child","4":"No","5":"0","6":"TRUE"},{"1":"1st","2":"Male","3":"Adult","4":"No","5":"118","6":"FALSE"},{"1":"2nd","2":"Male","3":"Adult","4":"No","5":"154","6":"FALSE"},{"1":"3rd","2":"Male","3":"Adult","4":"No","5":"387","6":"FALSE"},{"1":"Crew","2":"Male","3":"Adult","4":"No","5":"670","6":"TRUE"},{"1":"1st","2":"Female","3":"Adult","4":"No","5":"4","6":"FALSE"},{"1":"2nd","2":"Female","3":"Adult","4":"No","5":"13","6":"FALSE"},{"1":"3rd","2":"Female","3":"Adult","4":"No","5":"89","6":"FALSE"},{"1":"Crew","2":"Female","3":"Adult","4":"No","5":"3","6":"TRUE"},{"1":"1st","2":"Male","3":"Child","4":"Yes","5":"5","6":"FALSE"},{"1":"2nd","2":"Male","3":"Child","4":"Yes","5":"11","6":"FALSE"},{"1":"3rd","2":"Male","3":"Child","4":"Yes","5":"13","6":"FALSE"},{"1":"Crew","2":"Male","3":"Child","4":"Yes","5":"0","6":"TRUE"},{"1":"1st","2":"Female","3":"Child","4":"Yes","5":"1","6":"FALSE"},{"1":"2nd","2":"Female","3":"Child","4":"Yes","5":"13","6":"FALSE"},{"1":"3rd","2":"Female","3":"Child","4":"Yes","5":"14","6":"FALSE"},{"1":"Crew","2":"Female","3":"Child","4":"Yes","5":"0","6":"TRUE"},{"1":"1st","2":"Male","3":"Adult","4":"Yes","5":"57","6":"FALSE"},{"1":"2nd","2":"Male","3":"Adult","4":"Yes","5":"14","6":"FALSE"},{"1":"3rd","2":"Male","3":"Adult","4":"Yes","5":"75","6":"FALSE"},{"1":"Crew","2":"Male","3":"Adult","4":"Yes","5":"192","6":"TRUE"},{"1":"1st","2":"Female","3":"Adult","4":"Yes","5":"140","6":"FALSE"},{"1":"2nd","2":"Female","3":"Adult","4":"Yes","5":"80","6":"FALSE"},{"1":"3rd","2":"Female","3":"Adult","4":"Yes","5":"76","6":"FALSE"},{"1":"Crew","2":"Female","3":"Adult","4":"Yes","5":"20","6":"TRUE"}],"options":{"columns":{"min":{},"max":[10],"total":[6]},"rows":{"min":[10],"max":[10],"total":[32]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTkFcbk5BXG5gYGAifQ== -->
+<pre class="r"><code>NA
+NA</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>#total is 7</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5yb2xsZGllKDIpICU+JSBcbiAgZHBseXI6OmZpbHRlcihYMSArIFgyID09IDcpXG5gYGAifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHJvYl9jcmV3X3N1cnZpdmVkIDwtIHRpdGFuaWMgJT4lXG4gIGZpbHRlcihTdXJ2aXZlZCA9PSBcIlllc1wiLCBjcmV3ID09IFRSVUUpICU+JVxuICBzdW1tYXJpc2UocHJvYiA9IG4oKSAvIG5yb3codGl0YW5pYykpXG5wcm9iX2NyZXdfc3Vydml2ZWRcbmBgYCJ9 -->
+<pre class="r"><code>prob_crew_survived &lt;- titanic %&gt;%
+  filter(Survived == &quot;Yes&quot;, crew == TRUE) %&gt;%
+  summarise(prob = n() / nrow(titanic))
+prob_crew_survived</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MSwibmNvbCI6MSwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIxIHggMSJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUExMVBTd3JDTUJDZGZxSzBZQ2w0amhiRWphN2NpQWNRaFc3VFdyVllrNUttNk5LamViTFdTVW1nWnNKa1poNXZQdSs0ejlaaEZnS0FCejQrajJBSzVIdzZKQnNBMzhYQ1FUaFE4WTJrNVFnQVJDcnV2cUR0ajBnWWZaWXRKdkVFOUJ2QmM0c1lDUDVLRFhtQjduN3dHOURzaVVWTlczdGllS0dTcGxlQi9WajFWc3VjTjdMaURKdGNkVE94bWgxaEFYSEgxQ1dYcExoMzdKR3N0bXFERmd2NlBFZjdKRmM3M1VIUElucldyR1MzaXBYbStKcm1aYTJMQ0NXUGl0TkdWRXdhS1lpMnFlU1NHbDVZOE5vZ296am9mOWsvb04yckFRQUEifQ== -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["prob"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"0.125"}],"options":{"columns":{"min":{},"max":[10],"total":[1]},"rows":{"min":[10],"max":[10],"total":[1]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHJvYl9wYXNzX3N1cnZpdmVkIDwtIHRpdGFuaWMgJT4lXG4gIGZpbHRlcihTdXJ2aXZlZCA9PSBcIlllc1wiLCBjcmV3ID09IEZBTFNFKSAlPiVcbiAgc3VtbWFyaXNlKHByb2IgPSBuKCkgLyBucm93KHRpdGFuaWMpKVxucHJvYl9wYXNzX3N1cnZpdmVkXG5gYGAifQ== -->
+<pre class="r"><code>prob_pass_survived &lt;- titanic %&gt;%
+  filter(Survived == &quot;Yes&quot;, crew == FALSE) %&gt;%
+  summarise(prob = n() / nrow(titanic))
+prob_pass_survived</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MSwibmNvbCI6MSwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIxIHggMSJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUExMVBTdzZDTUJBZFB0VkFJaUh4SEJDakczZHVqQWN3bXJBdGlFckVscFFTWFhwTVR3Tk9TWnRncDVuT3pNdWJ6enZ1czAyWWhRRGdnWS9QSTVnQ09aOE95UmJBZDdGd0VBNVVmQ05wT1FJQWtZcTdMMmo3SXhKR24yV0xTVHdCL1VidzNDSUdncjlTUTE2Z3V4LzhCalI3WWxIVDFwNFlYcWlrNlZWZ1AxYTkxVExuamF3NHd5WlgzVXlzWmtkWVFOd3hkY2tsS2U0ZGV5VHJsZHFneFlJK3o5RSt5ZFZPZDlDemlKNDFLOW10WXFVNXZxWjVXZXNpUXNtajRyUVJGWk5HQ3FKdEtybWtoaGNXdkRiSUtBNzZIenRZUmdLckFRQUEifQ== -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["prob"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"0.375"}],"options":{"columns":{"min":{},"max":[10],"total":[1]},"rows":{"min":[10],"max":[10],"total":[1]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>#less than 5 on die</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGVzc190aGFuXzUgPC0gcm9sbGRpZSgxKSAlPiUgXG4gIGZpbHRlcihyb2xsZGllKDEpPDUpICBcbiAgXG5cbjQvNiBcbmBgYCJ9 -->
+<pre class="r"><code>less_than_5 &lt;- rolldie(1) %&gt;% 
+  filter(rolldie(1)&lt;5)  
+  
+
+4/6 </code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDAuNjY2NjY2N1xuIn0= -->
+<pre><code>[1] 0.6666667</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuICBcbmBgYCJ9 -->
+<pre class="r"><code>  </code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5vdXRjb21lc19jb21ib18zIDwtIHJvbGxkaWUoMylcblxub3V0Y29tZXNfY29tYm9fMyAlPiUgXG4gIGNvbWJpbmF0aW9ucyhcbiAgICBuID0gMTgsXG4gICAgciA9IDMsXG4gICAgdiA9IDE6MTgsXG4gICAgcmVwZWF0cy5hbGxvd2VkID0gVFJVRVxuICApXG5gYGAifQ== -->
 <pre class="r"><code>
-rolldie(2) %&gt;% 
-  dplyr::filter(X1 + X2 == 7)</code></pre>
+outcomes_combo_3 &lt;- rolldie(3)
+
+outcomes_combo_3 %&gt;% 
+  combinations(
+    n = 18,
+    r = 3,
+    v = 1:18,
+    repeats.allowed = TRUE
+  )</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibnJvdyI6NiwibmNvbCI6Miwic3VtbWFyeSI6eyJEZXNjcmlwdGlvbiI6WyJkZlssMl0gWzYgw5cgMl0iXX19LCJyZGYiOiJINHNJQUFBQUFBQUFBMlZRV3c2Q01CRGNGcXFSeEVmaU9TQlJmenlBOFFCR0UzNHJvaEt4TlZDam41NWMzWmF0VVlRMHpFNTNabmRZTGRKWmxFWUFFRUNJYnlBUWd0aXNsL0VjSU9SWU1LUjc5bnZIcGpFQ1MvYnhkT2hZU2VnY21qdjJkYytJQzZoSE5QeVBzVkR5bk5jSVJxNjVJWGs2K2FCcFM5Q3I5QzN4SWp1SlA4QTlmODVaS1d2djdNbG9KNDFNOWhYcXNYcTJKRjE5TVlWV0tPSmoydmRiektvV01id3F1OGt1em81WGRZcG5kZ0RsQnRxTzBiL3dtRGNqK1l1c0JGbDFjblVvVk81M0wrVTJMNmtZWUdJWE9MbFVoVEkrQ2JKMVlyU1J2aS9LZE9rWmx3MmViNU5TUmh6aUFRQUEifQ== -->
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["X1"],"name":[1],"type":["int"],"align":["right"]},{"label":["X2"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"6","2":"1"},{"1":"5","2":"2"},{"1":"4","2":"3"},{"1":"3","2":"4"},{"1":"2","2":"5"},{"1":"1","2":"6"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
-  </script>
-</div>
-<!-- rnb-frame-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucm9sbGRpZSgyKSAlPiUgXG4gZHBseXI6OmZpbHRlcihYMSArIFgyID49IDEwKVxuYGBgIn0= -->
-<pre class="r"><code>rolldie(2) %&gt;% 
- dplyr::filter(X1 + X2 &gt;= 10)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibnJvdyI6NiwibmNvbCI6Miwic3VtbWFyeSI6eyJEZXNjcmlwdGlvbiI6WyJkZlssMl0gWzYgw5cgMl0iXX19LCJyZGYiOiJINHNJQUFBQUFBQUFBMlZQV3c2Q01CQmNLOFZJZ3BwNERraDhmSGdBNHdHTUp2eFdRQ1ZpUzZCRVB6MjV1aTJ0SWJWTnM3UFRuZG5kL1RaWkJVa0FBRVB3OEE0cFFxREh3eTdhQUhnRWt3SFNZeFdmV0RSSG9NZ1FuMjhlTmRIcjRkRGhhSy9lZDR3cFovZThRVERUNWgxSmtzVVBMUjNCdUJhUDJJcFVKL0lDZmY2YzA1STExdG1TUWNZa2k4ODE2akY3TzVLUnFHUWhPSXJJM016ZEZ3OXFoNWkyWEUyU1JlbTE1YmRvclJybzcrNkVCdnM5VExxVzVHT3NxTEh5YzM0cGVHNW5MOWtwTDAweXdZMzF3bkZWRjF6YVRaQnRZaWtrczNWQktrckw2TjNnL1FXNXJPUmE0Z0VBQUE9PSJ9 -->
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["X1"],"name":[1],"type":["int"],"align":["right"]},{"label":["X2"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"6","2":"4"},{"1":"5","2":"5"},{"1":"6","2":"5"},{"1":"4","2":"6"},{"1":"5","2":"6"},{"1":"6","2":"6"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
-  </script>
-</div>
-<!-- rnb-frame-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTkFcbmBgYCJ9 -->
-<pre class="r"><code>NA</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>#%% is one devided by each that has no remainder - modula operator - use to give the raminder</p>
-<p>#in this the remainder is 0 then it is an even number</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucm9sbGRpZSgyKSAlPiUgXG4gIGRwbHlyOjpmaWx0ZXIoWDEgJSUgWDIgPT0gMCApXG5gYGAifQ== -->
-<pre class="r"><code>rolldie(2) %&gt;% 
-  dplyr::filter(X1 %% X2 == 0 )</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibnJvdyI6MTQsIm5jb2wiOjIsInN1bW1hcnkiOnsiRGVzY3JpcHRpb24iOlsiZGZbLDJdIFsxNCDDlyAyXSJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUEyMVEwV3FETUJTOUp1cFFtQnYwT3hUYVVlZ0hqSDFBNmNEWFROMHFkWWxvcEgzY2w5dmV4SnZoN0pSTHpqM0pPVGszKzlmOEpjNWpBT0RnNDg4RGhCQzhIOTdTSFlEUHNQR1Fqc3g2d1VNckJJWjh4RXJzNXRSekxOOG9zVUxpZk1LYzF2bitYUDlmc1ZueGUvOC93UUlwdnFzZXdiTVZUQ1RMMTc5b3N4QkVuVHBuVG1TU3NCK3dYN0owTGhyUk8yZEh4cVhRSXZ2c1VJL2R1SkE4cUZiWFNxS0lyU2p2WE94MUMrSnBrQ1pKbVJiSFFaN1NyYm1BM2dBb25VZHY1VENicm1SWHNncklLcXprVnkwcmw3MFJIMVZEVFlJVDI0R3p0cXVsZHBNZzIyZGFhZUhPeFlWcUhHTm5nL0VHT1g5ZkV5SUNBQUE9In0= -->
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["X1"],"name":[1],"type":["int"],"align":["right"]},{"label":["X2"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"1","2":"1"},{"1":"2","2":"1"},{"1":"3","2":"1"},{"1":"4","2":"1"},{"1":"5","2":"1"},{"1":"6","2":"1"},{"1":"2","2":"2"},{"1":"4","2":"2"},{"1":"6","2":"2"},{"1":"3","2":"3"},{"1":"6","2":"3"},{"1":"4","2":"4"},{"1":"5","2":"5"},{"1":"6","2":"6"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[14]},"pages":{}}}
-  </script>
-</div>
-<!-- rnb-frame-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuMS8xMlxuYGBgIn0= -->
-<pre class="r"><code>1/12</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDAuMDgzMzMzMzNcbiJ9 -->
-<pre><code>[1] 0.08333333</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoidGhlIGNvbmRpdGlvbiBoYXMgbGVuZ3RoID4gMSBhbmQgb25seSB0aGUgZmlyc3QgZWxlbWVudCB3aWxsIGJlIHVzZWRFcnJvciBpbiBpZiAoc2V0KSB7IDogYXJndW1lbnQgaXMgbm90IGludGVycHJldGFibGUgYXMgbG9naWNhbFxuIn0= -->
+<pre><code>the condition has length &gt; 1 and only the first element will be usedError in if (set) { : argument is not interpretable as logical</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWVyZ2Uocm9sbGRpZSgxKSx0b3NzY29pbigxKSkgJT4lIFxuICBkcGx5cjo6ZmlsdGVyKFgxICUlIDIgPT0gMCAmIHRvc3MxID09IFwiVFwiKVxuYGBgIn0= -->
-<pre class="r"><code>merge(rolldie(1),tosscoin(1)) %&gt;% 
-  dplyr::filter(X1 %% 2 == 0 &amp; toss1 == &quot;T&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibnJvdyI6MywibmNvbCI6Miwic3VtbWFyeSI6eyJEZXNjcmlwdGlvbiI6WyJkZlssMl0gWzMgw5cgMl0iXX19LCJyZGYiOiJINHNJQUFBQUFBQUFBMjFRWFV2RE1CUzlhNXBKQzFQQjM5SEMySVArQUJHZlpVSmZZNWU1c2l3cFNhWSsrc3VuTjJtdXpMQ0VrSFBQUGZmejViRmIxVjBOQUF4S3ZJd2pCUDY2Zm1vZUFNb0NqUm5TVmZpL1VIU0hJSkNMR0RIaEV0OGN6WE11dlg4SjVrcCtTT1VRM1VadlN2dE1ZSjNwZWErRUkvbGZrcTNvdmJHSVRybGNpNFBNc3hmZGt0emVPTGZNWWlwclBsdUtDLzBYM3hBUG00VHNKeXRmYjRRWDdkWml5SVVXcnN6b0I2TXhXUkVXeGJQZ21jMkltNk1PeFRkTnZ6dnFmWE1mQ2tUM2RCWUpzek9jbGxwU1k1ejJJdlg3b0NVTnE4U2JWTW00eGlIampPMW9CKzFwRW1SZDY0MFhwS3Q3bzRpSnM4SHBGK2ZmSzRZZkFnQUEifQ== -->
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["X1"],"name":[1],"type":["int"],"align":["right"]},{"label":["toss1"],"name":[2],"type":["fctr"],"align":["left"]}],"data":[{"1":"2","2":"T"},{"1":"4","2":"T"},{"1":"6","2":"T"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[3]},"pages":{}}}
-  </script>
-</div>
-<!-- rnb-frame-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5TX3JvbGxkaWVfdG9zc2NvaW4gPC0gbWVyZ2Uocm9sbGRpZSgxKSwgdG9zc2NvaW4oMSkpXG5kaWVfaXNfZXZlbl9jb2luX2lzX3RhaWxzIDwtIFNfcm9sbGRpZV90b3NzY29pbiAlPiUgXG4gIGRwbHlyOjppbnN0YWZpbHRlcihYMSAlJSAyID09IDAgJiB0b3NzMSA9PSBcIlRcIilcbmBgYCJ9 -->
-<pre class="r"><code>
-S_rolldie_tosscoin &lt;- merge(rolldie(1), tosscoin(1))
-die_is_even_coin_is_tails &lt;- S_rolldie_tosscoin %&gt;% 
-  dplyr::instafilter(X1 %% 2 == 0 &amp; toss1 == &quot;T&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3I6ICdpbnN0YWZpbHRlcicgaXMgbm90IGFuIGV4cG9ydGVkIG9iamVjdCBmcm9tICduYW1lc3BhY2U6ZHBseXInXG4ifQ== -->
-<pre><code>Error: &#39;instafilter&#39; is not an exported object from &#39;namespace:dplyr&#39;</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxucGVybXV0YXRpb25zKFxuICBuID0gNCxcbiAgciA9IDQsXG4gIHYgPSBjKDIsIDMsIDQsIDUpLFxuICByZXBlYXRzLmFsbG93ZWQgPSBGQUxTRSlcblxuYGBgXG5gYGAifQ== -->
-<pre class="r"><code>```r
-permutations(
-  n = 4,
-  r = 4,
-  v = c(2, 3, 4, 5),
-  repeats.allowed = FALSE)
-</code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-&lt;!-- rnb-output-begin eyJkYXRhIjoiICAgICAgWywxXSBbLDJdIFssM10gWyw0XVxuIFsxLF0gICAgMiAgICAzICAgIDQgICAgNVxuIFsyLF0gICAgMiAgICAzICAgIDUgICAgNFxuIFszLF0gICAgMiAgICA0ICAgIDMgICAgNVxuIFs0LF0gICAgMiAgICA0ICAgIDUgICAgM1xuIFs1LF0gICAgMiAgICA1ICAgIDMgICAgNFxuIFs2LF0gICAgMiAgICA1ICAgIDQgICAgM1xuIFs3LF0gICAgMyAgICAyICAgIDQgICAgNVxuIFs4LF0gICAgMyAgICAyICAgIDUgICAgNFxuIFs5LF0gICAgMyAgICA0ICAgIDIgICAgNVxuWzEwLF0gICAgMyAgICA0ICAgIDUgICAgMlxuWzExLF0gICAgMyAgICA1ICAgIDIgICAgNFxuWzEyLF0gICAgMyAgICA1ICAgIDQgICAgMlxuWzEzLF0gICAgNCAgICAyICAgIDMgICAgNVxuWzE0LF0gICAgNCAgICAyICAgIDUgICAgM1xuWzE1LF0gICAgNCAgICAzICAgIDIgICAgNVxuWzE2LF0gICAgNCAgICAzICAgIDUgICAgMlxuWzE3LF0gICAgNCAgICA1ICAgIDIgICAgM1xuWzE4LF0gICAgNCAgICA1ICAgIDMgICAgMlxuWzE5LF0gICAgNSAgICAyICAgIDMgICAgNFxuWzIwLF0gICAgNSAgICAyICAgIDQgICAgM1xuWzIxLF0gICAgNSAgICAzICAgIDIgICAgNFxuWzIyLF0gICAgNSAgICAzICAgIDQgICAgMlxuWzIzLF0gICAgNSAgICA0ICAgIDIgICAgM1xuWzI0LF0gICAgNSAgICA0ICAgIDMgICAgMlxuIn0= --&gt;
-</code></pre>
-<pre><code>  [,1] [,2] [,3] [,4]</code></pre>
-<p>[1,] 2 3 4 5 [2,] 2 3 5 4 [3,] 2 4 3 5 [4,] 2 4 5 3 [5,] 2 5 3 4 [6,] 2 5 4 3 [7,] 3 2 4 5 [8,] 3 2 5 4 [9,] 3 4 2 5 [10,] 3 4 5 2 [11,] 3 5 2 4 [12,] 3 5 4 2 [13,] 4 2 3 5 [14,] 4 2 5 3 [15,] 4 3 2 5 [16,] 4 3 5 2 [17,] 4 5 2 3 [18,] 4 5 3 2 [19,] 5 2 3 4 [20,] 5 2 4 3 [21,] 5 3 2 4 [22,] 5 3 4 2 [23,] 5 4 2 3 [24,] 5 4 3 2</p>
-<pre><code>
-
-
-&lt;!-- rnb-output-end --&gt;
-
-&lt;!-- rnb-chunk-end --&gt;
-
-
-&lt;!-- rnb-text-begin --&gt;
-
-
-
-#any 4 digit numbers are there
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxubG9ja2VyX251bWJlcnMgPC0gcGVybXV0YXRpb25zKFxuICBuID0gMTAsXG4gIHIgPSA0LFxuICB2ID0gMDo5LFxuICByZXBlYXRzLmFsbG93ZWQgPSBUUlVFXG4pXG5gYGBcbmBgYCJ9 --&gt;
-
-```r
-```r
-locker_numbers &lt;- permutations(
-  n = 10,
-  r = 4,
-  v = 0:9,
-  repeats.allowed = TRUE
-)</code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-&lt;!-- rnb-chunk-end --&gt;
-
-
-&lt;!-- rnb-text-begin --&gt;
-
-
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuY2hvb3NlKDU1LDYpXG5cbmBgYFxuYGBgIn0= --&gt;
-
-```r
-```r
-choose(55,6)
-</code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-&lt;!-- rnb-output-begin eyJkYXRhIjoiWzFdIDI4OTg5Njc1XG4ifQ== --&gt;
-</code></pre>
-<p>[1] 28989675</p>
-<pre><code>
-
-
-&lt;!-- rnb-output-end --&gt;
-
-&lt;!-- rnb-chunk-end --&gt;
-
-
-&lt;!-- rnb-text-begin --&gt;
-
-
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZW1wbG95ZWVzIDwtIGMoXFxBbGljZVxcLCBcXEJvYlxcLCBcXENhcm9sZVxcLCBcXERhdmlkXFwsIFxcRWxhaW5lXFwsIFxcRnJlZFxcLCBcXEdhYnJhXFwsIFxcSHVhXFwsIFxcSW5pZ29cXCwgXFxIdWdvXFwpXG5cbnNlbmlvcnMgPC0gcGVybXV0YXRpb25zKFxuICBuID0gMTAsXG4gIHIgPSAzLFxuICB2ID0gZW1wbG95ZWVzLFxuICByZXBlYXRzLmFsbG93ZWQgPSBGQUxTRVxuKVxuXG5kaW0oc2VuaW9ycylcbmBgYFxuYGBgIn0= --&gt;
-
-```r
-```r
-employees &lt;- c(\Alice\, \Bob\, \Carole\, \David\, \Elaine\, \Fred\, \Gabra\, \Hua\, \Inigo\, \Hugo\)
-
-seniors &lt;- permutations(
-  n = 10,
-  r = 3,
-  v = employees,
-  repeats.allowed = FALSE
-)
-
-dim(seniors)</code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-&lt;!-- rnb-output-begin eyJkYXRhIjoiWzFdIDcyMCAgIDNcbiJ9 --&gt;
-</code></pre>
-<p>[1] 720 3</p>
-<pre><code>
-
-
-&lt;!-- rnb-output-end --&gt;
-
-&lt;!-- rnb-chunk-end --&gt;
-
-
-&lt;!-- rnb-text-begin --&gt;
-
-
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuXG5hc190aWJibGUoc2VuaW9ycykgJT4lIFxuICBzZXRfbmFtZXMoYyhcXENFT1xcLCBcXENUT1xcLCBcXENPT1xcKSkgJT4lIFxuICBkcGx5cjo6ZmlsdGVyKENFTyA9PSBcXEFsaWNlXFwgJiBDVE8gPT0gXFxCb2JcXClcbmBgYFxuYGBgIn0= --&gt;
-
-```r
-```r
-
-as_tibble(seniors) %&gt;% 
-  set_names(c(\CEO\, \CTO\, \COO\)) %&gt;% 
-  dplyr::filter(CEO == \Alice\ &amp; CTO == \Bob\)</code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-&lt;!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6OCwibmNvbCI6Mywic3VtbWFyeSI6eyJBIHRpYmJsZSI6IjggeCAzIn19LCJyZGYiOiJINHNJQUFBQUFBQUFBN1ZSeVU3RE1CQjE0eGphU0VXVitJN2tVZ2x4aFM2VVV5VFVTcjFPRm9xRnNTc25BWTU4TnFlR1NacHBpYytReU1tYk4vTm04OU44T3cyMkFXT01NeDlmTGhBeXNWa3Z3MXZHZkErTkFkS2o1ditKUWRkdEpHTVRQTVBPSWU2VVRQUC9OUHIxK0wxSi9oYjI4MS9Nd0JwMWFtRU83eklqMTBLQjFPVHlselluajNpQXhBSWxYVlVFL1ZXMU14VHpxQ1VhL2JVS0RXOTUwYlhBS2NGc0VaL2crZ3pqMkZHUHJQbUlLTU1Zai9lRm43cXV2OTB5cVlLQ3loQVpaRkJDOUd4Umo5YkJrVnlhZlNtTlJwSFhYTHR3eEFQckVKTktONTFrWWZwUzZkZHdldE5VYVAzSFo5emg0Uy9NanpXOXVzc2xhTkc1M3AwWExSUWt1ZXFNS3h5NW5UamFXNmxMR2dYWklpcE5DUlFYcEVZUjB3N0hEaitUMHZBNDdnSUFBQT09In0= --&gt;
-
-&lt;div data-pagedtable=&quot;false&quot;&gt;
-  &lt;script data-pagedtable-source type=&quot;application/json&quot;&gt;
-{&quot;columns&quot;:[{&quot;label&quot;:[&quot;CEO&quot;],&quot;name&quot;:[1],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;CTO&quot;],&quot;name&quot;:[2],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]},{&quot;label&quot;:[&quot;COO&quot;],&quot;name&quot;:[3],&quot;type&quot;:[&quot;chr&quot;],&quot;align&quot;:[&quot;left&quot;]}],&quot;data&quot;:[{&quot;1&quot;:&quot;Alice&quot;,&quot;2&quot;:&quot;Bob&quot;,&quot;3&quot;:&quot;Carole&quot;},{&quot;1&quot;:&quot;Alice&quot;,&quot;2&quot;:&quot;Bob&quot;,&quot;3&quot;:&quot;David&quot;},{&quot;1&quot;:&quot;Alice&quot;,&quot;2&quot;:&quot;Bob&quot;,&quot;3&quot;:&quot;Elaine&quot;},{&quot;1&quot;:&quot;Alice&quot;,&quot;2&quot;:&quot;Bob&quot;,&quot;3&quot;:&quot;Fred&quot;},{&quot;1&quot;:&quot;Alice&quot;,&quot;2&quot;:&quot;Bob&quot;,&quot;3&quot;:&quot;Gabra&quot;},{&quot;1&quot;:&quot;Alice&quot;,&quot;2&quot;:&quot;Bob&quot;,&quot;3&quot;:&quot;Hua&quot;},{&quot;1&quot;:&quot;Alice&quot;,&quot;2&quot;:&quot;Bob&quot;,&quot;3&quot;:&quot;Hugo&quot;},{&quot;1&quot;:&quot;Alice&quot;,&quot;2&quot;:&quot;Bob&quot;,&quot;3&quot;:&quot;Inigo&quot;}],&quot;options&quot;:{&quot;columns&quot;:{&quot;min&quot;:{},&quot;max&quot;:[10],&quot;total&quot;:[3]},&quot;rows&quot;:{&quot;min&quot;:[10],&quot;max&quot;:[10],&quot;total&quot;:[8]},&quot;pages&quot;:{}}}
-  &lt;/script&gt;
-&lt;/div&gt;
-
-&lt;!-- rnb-frame-end --&gt;
-
-&lt;!-- rnb-chunk-end --&gt;
-
-
-&lt;!-- rnb-text-begin --&gt;
-
-
-Task - 10 mins A licence plate begins with three letters from a possible set of A, B, C, D, E. How many permutations are possible if repetition of letters is:
-not allowed [Hint - how many letters are possible for first position, how many for second if one is ‘used up’, how many for third if two are ‘used up’?]
-allowed [Hint - all that changes from last answer is that letters don’t get ‘used up’]
-Try this either using pen and paper maths or R, your choice!
-
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxubGV0dGVycyA8LSBjKFxcQVxcLCBcXEJcXCwgXFxDXFwsIFxcRFxcLCBcXEVcXClcblxucGVybXV0YXRpb25zKFxuICBuID0gNSxcbiAgciA9IDMsXG4gIHYgPSBsZXR0ZXJzLFxuICByZXBlYXRzLmFsbG93ZWQgPSBGQUxTRVxuKVxuXG5wZXJtdXRhdGlvbnMoXG4gIG4gPSA1LFxuICByID0gMyxcbiAgdiA9IGxldHRlcnMsXG4gIHJlcGVhdHMuYWxsb3dlZCA9IFRSVUVcbilcblxuYGBgXG5gYGAifQ== --&gt;
-
-```r
-```r
-letters &lt;- c(\A\, \B\, \C\, \D\, \E\)
-
-permutations(
-  n = 5,
-  r = 3,
-  v = letters,
-  repeats.allowed = FALSE
-)
-
-permutations(
-  n = 5,
-  r = 3,
-  v = letters,
-  repeats.allowed = TRUE
-)
-</code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-&lt;!-- rnb-chunk-end --&gt;
-
-
-&lt;!-- rnb-text-begin --&gt;
-
-
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuXG5hbGxfY2FyZHMgPC1cbmNhcmRzKCkgJT4lIFxuICBtdXRhdGUoY2FyZCA9IHN0cl9jKHJhbmssIHN1aXQpKSAlPiUgXG4gIHB1bGwgKGNhcmQpXG5cblxuYGBgXG5gYGAifQ== --&gt;
-
-```r
-```r
-
-all_cards &lt;-
-cards() %&gt;% 
-  mutate(card = str_c(rank, suit)) %&gt;% 
-  pull (card)
-</code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-&lt;!-- rnb-chunk-end --&gt;
-
-
-&lt;!-- rnb-text-begin --&gt;
-
-
-
-#permutations and combinations - combinations are use when you dont matter what order they appear in.
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuXG5maXZlX2NhcmRfaGFuZHMgPC0gXG5jb21iaW5hdGlvbnMoXG4gIG4gPSA1MixcbiAgciA9IDUsXG4gIHYgPSBhbGxfY2FyZHMsXG4gIHJlcGVhdHMuYWxsb3dlZCA9IEZBTFNFXG4pXG5gYGBcbmBgYCJ9 --&gt;
-
-```r
-```r
-
-five_card_hands &lt;- 
-combinations(
-  n = 52,
-  r = 5,
-  v = all_cards,
-  repeats.allowed = FALSE
-)</code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-&lt;!-- rnb-chunk-end --&gt;
-
-
-&lt;!-- rnb-text-begin --&gt;
-
-
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxub3B0aW9ucyhzY2lwZW4gPSA5OTkpXG5kaW0oZml2ZV9jYXJkX2hhbmRzKVxuYGBgXG5gYGAifQ== --&gt;
-
-```r
-```r
-options(scipen = 999)
-dim(five_card_hands)</code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-&lt;!-- rnb-output-begin eyJkYXRhIjoiWzFdIDI1OTg5NjAgICAgICAgNVxuIn0= --&gt;
-</code></pre>
-<p>[1] 2598960 5</p>
-<pre><code>
-
-
-&lt;!-- rnb-output-end --&gt;
-
-&lt;!-- rnb-chunk-end --&gt;
-
-
-&lt;!-- rnb-text-begin --&gt;
-
-
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuNC8yNTk4OTYwXG5gYGBcbmBgYCJ9 --&gt;
-
-```r
-```r
-4/2598960</code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-&lt;!-- rnb-output-begin eyJkYXRhIjoiWzFdIDAuMDAwMDAxNTM5MDc3XG4ifQ== --&gt;
-</code></pre>
-<p>[1] 0.000001539077</p>
-<pre><code>
-
-
-&lt;!-- rnb-output-end --&gt;
-
-&lt;!-- rnb-chunk-end --&gt;
-
-
-&lt;!-- rnb-text-begin --&gt;
-
-
-
-#a number of ways to pick 5 cards from 52 - 
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuY2hvb3NlKDUyLDUpXG5cbmBgYFxuYGBgIn0= --&gt;
-
-```r
-```r
-choose(52,5)
-</code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-&lt;!-- rnb-output-begin eyJkYXRhIjoiWzFdIDI1OTg5NjBcbiJ9 --&gt;
-</code></pre>
-<p>[1] 2598960</p>
-<pre><code>
-
-
-&lt;!-- rnb-output-end --&gt;
-
-&lt;!-- rnb-chunk-end --&gt;
-
-
-&lt;!-- rnb-text-begin --&gt;
-
-
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxubG90dGVyeV90aWNrZXRzIDwtIFxuY29tYmluYXRpb25zKFxuICBuID0gNTAsXG4gIHIgPSA2LFxuICB2ID0gMTo1MCxcbiAgcmVwZWF0cy5hbGxvd2VkID0gRkFMU0VcbilcbmBgYFxuYGBgIn0= --&gt;
-
-```r
-```r
-lottery_tickets &lt;- 
-combinations(
-  n = 50,
-  r = 6,
-  v = 1:50,
-  repeats.allowed = FALSE
-)</code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-&lt;!-- rnb-chunk-end --&gt;
-
-
-&lt;!-- rnb-text-begin --&gt;
-
-
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZGltKGxvdHRlcnlfdGlja2V0cylcblxuYGBgXG5gYGAifQ== --&gt;
-
-```r
-```r
-dim(lottery_tickets)
-</code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-&lt;!-- rnb-output-begin eyJkYXRhIjoiWzFdIDE1ODkwNzAwICAgICAgICA2XG4ifQ== --&gt;
-</code></pre>
-<p>[1] 15890700 6</p>
-<pre><code>
-
-
-&lt;!-- rnb-output-end --&gt;
-
-&lt;!-- rnb-chunk-end --&gt;
-
-
-&lt;!-- rnb-text-begin --&gt;
-
-
-I have five flavours of ice cream to choose from:
-# SLACK THIS OUT
-flavours &lt;- c(&quot;vanilla&quot;, &quot;chocolate&quot;, &quot;raspberry&quot;, &quot;strawberry&quot;, &quot;pistachio&quot;) 
-and a bowl that can hold three scoops. How many different variations in bowls of ice cream can I have assuming:
-Each scoop must be a different flavour
-I can repeat flavours if I wish?
-
-
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuZmxhdm91cnMgPC0gYyhcXHZhbmlsbGFcXCwgXFxjaG9jb2xhdGVcXCwgXFxyYXNwYmVycnlcXCwgXFxzdHJhd2JlcnJ5XFwsIFxccGlzdGFjaGlvXFwpXG5cbmljZWNyZWFtIDwtIGNvbWJpbmF0aW9ucyhcbiAgbiA9IDUsXG4gIHIgPSAzLFxuICB2ID0gZmxhdm91cnMsXG4gIHJlcGVhdHMuYWxsb3dlZCA9IEZBTFNFXG4pXG5cbmRpbShpY2VjcmVhbSlcbmBgYFxuYGBgIn0= --&gt;
-
-```r
-```r
-flavours &lt;- c(\vanilla\, \chocolate\, \raspberry\, \strawberry\, \pistachio\)
-
-icecream &lt;- combinations(
-  n = 5,
-  r = 3,
-  v = flavours,
-  repeats.allowed = FALSE
-)
-
-dim(icecream)</code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-&lt;!-- rnb-output-begin eyJkYXRhIjoiWzFdIDEwICAzXG4ifQ== --&gt;
-</code></pre>
-<p>[1] 10 3</p>
-<pre><code>
-
-
-&lt;!-- rnb-output-end --&gt;
-
-&lt;!-- rnb-chunk-end --&gt;
-
-
-&lt;!-- rnb-text-begin --&gt;
-
-
-
-# use choose for finding the number of combinations possible 
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYGBgclxuXG5jaG9vc2UoNSwgMylcbmBgYFxuYGBgIn0= --&gt;
-
-```r
-```r
-
-choose(5, 3)</code></pre>
-<pre><code>
-&lt;!-- rnb-source-end --&gt;
-
-&lt;!-- rnb-output-begin eyJkYXRhIjoiWzFdIDEwXG4ifQ== --&gt;
-</code></pre>
-<p>[1] 10</p>
-<pre><code>
-
-
-&lt;!-- rnb-output-end --&gt;
-
-&lt;!-- rnb-chunk-end --&gt;
-
-
-&lt;!-- rnb-text-begin --&gt;
-
-
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-
-&lt;!-- rnb-chunk-end --&gt;
-
-
-&lt;!-- rnb-text-begin --&gt;
-
-
-
-#sometimes easier to calculate the opposit and take it away from 1 
-# known as compliments
-
-#P(Ac)= 1-P(A)
-
-#intersections - outcomes common to both event spaces 
-
-
-Let’s check the addition law for ourselves. Calculate probabilities for each event below:
-first_die_even
-second_die_5
-first_die_even AND second_die_5
-Then use these probabilities in the expression from above
-prob(A∪B)=prob(A)+prob(B)−prob(A∩B)
-and check you get the same probability for prob(first_die_even OR second_die_5)
-prob(first_die_even OR second_die_5) as we obtained from the last block of code.
-
-
-&lt;!-- rnb-text-end --&gt;
-
-
-&lt;!-- rnb-chunk-begin --&gt;
-
-
-&lt;!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucm9sbGRpZSgyKVxuXG5cbmBgYCJ9 --&gt;
-
-```r
-rolldie(2)
-</code></pre>
-<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKYGBge3J9CmxpYnJhcnkocHJvYikKbGlicmFyeSh0aWR5dmVyc2UpCmxpYnJhcnkoZ3Rvb2xzKQoKYGBgCgoKI3RvdGFsIGlzIDcKYGBge3J9Cgpyb2xsZGllKDIpICU+JSAKICBkcGx5cjo6ZmlsdGVyKFgxICsgWDIgPT0gNykKYGBgCgpgYGB7cn0Kcm9sbGRpZSgyKSAlPiUgCiBkcGx5cjo6ZmlsdGVyKFgxICsgWDIgPj0gMTApCgpgYGAKCiMlJSBpcyBvbmUgZGV2aWRlZCBieSBlYWNoIHRoYXQgaGFzIG5vIHJlbWFpbmRlciAtIG1vZHVsYSBvcGVyYXRvciAtIHVzZSB0byBnaXZlIHRoZSByYW1pbmRlciAKCiNpbiB0aGlzIHRoZSByZW1haW5kZXIgaXMgMCB0aGVuIGl0IGlzIGFuIGV2ZW4gbnVtYmVyCmBgYHtyfQpyb2xsZGllKDIpICU+JSAKICBkcGx5cjo6ZmlsdGVyKFgxICUlIFgyID09IDAgKQpgYGAKCmBgYHtyfQoxLzEyCmBgYAoKYGBge3J9Cm1lcmdlKHJvbGxkaWUoMSksdG9zc2NvaW4oMSkpICU+JSAKICBkcGx5cjo6ZmlsdGVyKFgxICUlIDIgPT0gMCAmIHRvc3MxID09ICJUIikKYGBgCgpgYGB7cn0KClNfcm9sbGRpZV90b3NzY29pbiA8LSBtZXJnZShyb2xsZGllKDEpLCB0b3NzY29pbigxKSkKZGllX2lzX2V2ZW5fY29pbl9pc190YWlscyA8LSBTX3JvbGxkaWVfdG9zc2NvaW4gJT4lIAogIGRwbHlyOjppbnN0YWZpbHRlcihYMSAlJSAyID09IDAgJiB0b3NzMSA9PSAiVCIpCm5yb3coZGllX2lzX2V2ZW5fY29pbl9pc190YWlscykvbnJvdyhTX3JvbGxkaWVfdG9zc2NvaW4pCmBgYAoKYGBge3J9CnBlcm11dGF0aW9ucygKICBuID0gNCwKICByID0gNCwKICB2ID0gYygyLCAzLCA0LCA1KSwKICByZXBlYXRzLmFsbG93ZWQgPSBGQUxTRQogICkKCgpgYGAKCgojYW55IDQgZGlnaXQgbnVtYmVycyBhcmUgdGhlcmUKYGBge3J9CmxvY2tlcl9udW1iZXJzIDwtIHBlcm11dGF0aW9ucygKICBuID0gMTAsCiAgciA9IDQsCiAgdiA9IDA6OSwKICByZXBlYXRzLmFsbG93ZWQgPSBUUlVFCikKYGBgCgpgYGB7cn0KY2hvb3NlKDU1LDYpCgpkaW0obG90dGVyeSkKYGBgCgpgYGB7cn0KZW1wbG95ZWVzIDwtIGMoIkFsaWNlIiwgIkJvYiIsICJDYXJvbGUiLCAiRGF2aWQiLCAiRWxhaW5lIiwgIkZyZWQiLCAiR2FicmEiLCAiSHVhIiwgIkluaWdvIiwgIkh1Z28iKQoKc2VuaW9ycyA8LSBwZXJtdXRhdGlvbnMoCiAgbiA9IDEwLAogIHIgPSAzLAogIHYgPSBlbXBsb3llZXMsCiAgcmVwZWF0cy5hbGxvd2VkID0gRkFMU0UKKQoKZGltKHNlbmlvcnMpCmBgYAoKYGBge3J9CiNhc190aWJibGUgYmV0dGVyIGFzIGRpc3BsYXlpbmcgLSB0aGVuIHNldF9uYW1lcyBjaGFuZ2VzIGFsbCB0aGUgaGVhZGVycyBpbiBjb2x1bW5zIAoKYXNfdGliYmxlKHNlbmlvcnMpICU+JSAKICBzZXRfbmFtZXMoYygiQ0VPIiwgIkNUTyIsICJDT08iKSkgJT4lIAogIGRwbHlyOjpmaWx0ZXIoQ0VPID09ICJBbGljZSIgJiBDVE8gPT0gIkJvYiIpCmBgYAoKVGFzayAtIDEwIG1pbnMgQSBsaWNlbmNlIHBsYXRlIGJlZ2lucyB3aXRoIHRocmVlIGxldHRlcnMgZnJvbSBhIHBvc3NpYmxlIHNldCBvZiBBLCBCLCBDLCBELCBFLiBIb3cgbWFueSBwZXJtdXRhdGlvbnMgYXJlIHBvc3NpYmxlIGlmIHJlcGV0aXRpb24gb2YgbGV0dGVycyBpczoKbm90IGFsbG93ZWQgW0hpbnQgLSBob3cgbWFueSBsZXR0ZXJzIGFyZSBwb3NzaWJsZSBmb3IgZmlyc3QgcG9zaXRpb24sIGhvdyBtYW55IGZvciBzZWNvbmQgaWYgb25lIGlzIOKAmHVzZWQgdXDigJksIGhvdyBtYW55IGZvciB0aGlyZCBpZiB0d28gYXJlIOKAmHVzZWQgdXDigJk/XQphbGxvd2VkIFtIaW50IC0gYWxsIHRoYXQgY2hhbmdlcyBmcm9tIGxhc3QgYW5zd2VyIGlzIHRoYXQgbGV0dGVycyBkb27igJl0IGdldCDigJh1c2VkIHVw4oCZXQpUcnkgdGhpcyBlaXRoZXIgdXNpbmcgcGVuIGFuZCBwYXBlciBtYXRocyBvciBSLCB5b3VyIGNob2ljZSEKCmBgYHtyfQpsZXR0ZXJzIDwtIGMoIkEiLCAiQiIsICJDIiwgIkQiLCAiRSIpCgpwZXJtdXRhdGlvbnMoCiAgbiA9IDUsCiAgciA9IDMsCiAgdiA9IGxldHRlcnMsCiAgcmVwZWF0cy5hbGxvd2VkID0gRkFMU0UKKQoKcGVybXV0YXRpb25zKAogIG4gPSA1LAogIHIgPSAzLAogIHYgPSBsZXR0ZXJzLAogIHJlcGVhdHMuYWxsb3dlZCA9IFRSVUUKKQoKYGBgCgpgYGB7cn0KCmFsbF9jYXJkcyA8LQpjYXJkcygpICU+JSAKICBtdXRhdGUoY2FyZCA9IHN0cl9jKHJhbmssIHN1aXQpKSAlPiUgCiAgcHVsbCAoY2FyZCkKCgpgYGAKCgojcGVybXV0YXRpb25zIGFuZCBjb21iaW5hdGlvbnMgLSBjb21iaW5hdGlvbnMgYXJlIHVzZSB3aGVuIHlvdSBkb250IG1hdHRlciB3aGF0IG9yZGVyIHRoZXkgYXBwZWFyIGluLgpgYGB7cn0KCmZpdmVfY2FyZF9oYW5kcyA8LSAKY29tYmluYXRpb25zKAogIG4gPSA1MiwKICByID0gNSwKICB2ID0gYWxsX2NhcmRzLAogIHJlcGVhdHMuYWxsb3dlZCA9IEZBTFNFCikKYGBgCgpgYGB7cn0Kb3B0aW9ucyhzY2lwZW4gPSA5OTkpCmRpbShmaXZlX2NhcmRfaGFuZHMpCmBgYAoKYGBge3J9CjQvMjU5ODk2MApgYGAKCgojYSBudW1iZXIgb2Ygd2F5cyB0byBwaWNrIDUgY2FyZHMgZnJvbSA1MiAtIApgYGB7cn0KCmNob29zZSg1Miw1KQpgYGAKCmBgYHtyfQpsb3R0ZXJ5X3RpY2tldHMgPC0gCmNvbWJpbmF0aW9ucygKICBuID0gNTAsCiAgciA9IDYsCiAgdiA9IDE6NTAsCiAgcmVwZWF0cy5hbGxvd2VkID0gRkFMU0UKKQpgYGAKCmBgYHtyfQoKZGltKGxvdHRlcnlfdGlja2V0cykKYGBgCgpJIGhhdmUgZml2ZSBmbGF2b3VycyBvZiBpY2UgY3JlYW0gdG8gY2hvb3NlIGZyb206CiMgU0xBQ0sgVEhJUyBPVVQKZmxhdm91cnMgPC0gYygidmFuaWxsYSIsICJjaG9jb2xhdGUiLCAicmFzcGJlcnJ5IiwgInN0cmF3YmVycnkiLCAicGlzdGFjaGlvIikgCmFuZCBhIGJvd2wgdGhhdCBjYW4gaG9sZCB0aHJlZSBzY29vcHMuIEhvdyBtYW55IGRpZmZlcmVudCB2YXJpYXRpb25zIGluIGJvd2xzIG9mIGljZSBjcmVhbSBjYW4gSSBoYXZlIGFzc3VtaW5nOgpFYWNoIHNjb29wIG11c3QgYmUgYSBkaWZmZXJlbnQgZmxhdm91cgpJIGNhbiByZXBlYXQgZmxhdm91cnMgaWYgSSB3aXNoPwoKCmBgYHtyfQoKI251bWJlciBvZiBjb21iaW5hdGlvbnMKZmxhdm91cnMgPC0gYygidmFuaWxsYSIsICJjaG9jb2xhdGUiLCAicmFzcGJlcnJ5IiwgInN0cmF3YmVycnkiLCAicGlzdGFjaGlvIikKCmljZWNyZWFtIDwtIGNvbWJpbmF0aW9ucygKICBuID0gNSwKICByID0gMywKICB2ID0gZmxhdm91cnMsCiAgcmVwZWF0cy5hbGxvd2VkID0gRkFMU0UKKQoKZGltKGljZWNyZWFtKQoKYGBgCgoKIyB1c2UgY2hvb3NlIGZvciBmaW5kaW5nIHRoZSBudW1iZXIgb2YgY29tYmluYXRpb25zIHBvc3NpYmxlIApgYGB7cn0KCmNob29zZSg1LCAzKQpgYGAKCmBgYHtyfQp0b3NzY29pbnMoNCkgJT4lIAogIG11YXRhdGUobnVtX2hlYWRzKQpgYGAKCgojc29tZXRpbWVzIGVhc2llciB0byBjYWxjdWxhdGUgdGhlIG9wcG9zaXQgYW5kIHRha2UgaXQgYXdheSBmcm9tIDEgCiMga25vd24gYXMgY29tcGxpbWVudHMKCiNQKEFjKT0gMS1QKEEpCgojaW50ZXJzZWN0aW9ucyAtIG91dGNvbWVzIGNvbW1vbiB0byBib3RoIGV2ZW50IHNwYWNlcyAKCgpMZXTigJlzIGNoZWNrIHRoZSBhZGRpdGlvbiBsYXcgZm9yIG91cnNlbHZlcy4gQ2FsY3VsYXRlIHByb2JhYmlsaXRpZXMgZm9yIGVhY2ggZXZlbnQgYmVsb3c6CmZpcnN0X2RpZV9ldmVuCnNlY29uZF9kaWVfNQpmaXJzdF9kaWVfZXZlbiBBTkQgc2Vjb25kX2RpZV81ClRoZW4gdXNlIHRoZXNlIHByb2JhYmlsaXRpZXMgaW4gdGhlIGV4cHJlc3Npb24gZnJvbSBhYm92ZQpwcm9iKEHiiKpCKT1wcm9iKEEpK3Byb2IoQiniiJJwcm9iKEHiiKlCKQphbmQgY2hlY2sgeW91IGdldCB0aGUgc2FtZSBwcm9iYWJpbGl0eSBmb3IgcHJvYihmaXJzdF9kaWVfZXZlbiBPUiBzZWNvbmRfZGllXzUpCnByb2IoZmlyc3RfZGllX2V2ZW4gT1Igc2Vjb25kX2RpZV81KSBhcyB3ZSBvYnRhaW5lZCBmcm9tIHRoZSBsYXN0IGJsb2NrIG9mIGNvZGUuCgpgYGB7cn0Kcm9sbGRpZSgyKQoKCmBgYAoK</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKYGBge3J9CmxpYnJhcnkocHJvYikKbGlicmFyeShndG9vbHMpCmxpYnJhcnkodGlkeXZlcnNlKQpgYGAKCmBgYHtyfQp0aXRhbmljIDwtIGFzX3RpYmJsZShUaXRhbmljKQoKdGl0YW5pYwpgYGAKYGBge3J9CiNjaGFuZ2UgdG8gY3JldyBUUlVFIG9yIEZBTFNFCgp0aXRhbmljIDwtIHRpdGFuaWMgJT4lIAogIG11dGF0ZShjcmV3ID0gaWZlbHNlKENsYXNzID09ICJDcmV3IiwgVFJVRSwgRkFMU0UpKQoKdGl0YW5pYwoKCmBgYAoKYGBge3J9CnByb2JfY3Jld19zdXJ2aXZlZCA8LSB0aXRhbmljICU+JQogIGZpbHRlcihTdXJ2aXZlZCA9PSAiWWVzIiwgY3JldyA9PSBUUlVFKSAlPiUKICBzdW1tYXJpc2UocHJvYiA9IG4oKSAvIG5yb3codGl0YW5pYykpCnByb2JfY3Jld19zdXJ2aXZlZApgYGAKCmBgYHtyfQpwcm9iX3Bhc3Nfc3Vydml2ZWQgPC0gdGl0YW5pYyAlPiUKICBmaWx0ZXIoU3Vydml2ZWQgPT0gIlllcyIsIGNyZXcgPT0gRkFMU0UpICU+JQogIHN1bW1hcmlzZShwcm9iID0gbigpIC8gbnJvdyh0aXRhbmljKSkKcHJvYl9wYXNzX3N1cnZpdmVkCmBgYAojbGVzcyB0aGFuIDUgb24gZGllCmBgYHtyfQpsZXNzX3RoYW5fNSA8LSByb2xsZGllKDEpICU+JSAKICBmaWx0ZXIocm9sbGRpZSgxKTw1KSAgCiAgCgo0LzYgCiAgCmBgYAoKYGBge3J9CgpvdXRjb21lc19jb21ib18zIDwtIHJvbGxkaWUoMykKCm91dGNvbWVzX2NvbWJvXzMgJT4lIAogIGNvbWJpbmF0aW9ucygKICAgIG4gPSAxOCwKICAgIHIgPSAzLAogICAgdiA9IDE6MTgsCiAgICByZXBlYXRzLmFsbG93ZWQgPSBUUlVFCiAgKQoKb3V0Y29tZXNfY29tYm9fMwpgYGAKCmBgYHtyfQoKCmBgYAoK</div>
 
 
 
@@ -931,7 +417,7 @@ $(document).ready(function () {
 <!-- code folding -->
 <script>
 $(document).ready(function () {
-  window.initializeSourceEmbed("counting rules.Rmd");
+  window.initializeSourceEmbed("homework_titanic.Rmd");
   window.initializeCodeFolding("show" === "show");
 });
 </script>

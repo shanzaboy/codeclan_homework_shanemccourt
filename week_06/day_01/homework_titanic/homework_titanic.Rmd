@@ -1,0 +1,70 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(prob)
+library(gtools)
+library(tidyverse)
+```
+
+```{r}
+titanic <- as_tibble(Titanic)
+
+titanic
+```
+```{r}
+#change to crew TRUE or FALSE
+
+titanic <- titanic %>% 
+  mutate(crew = ifelse(Class == "Crew", TRUE, FALSE))
+
+titanic
+
+
+```
+
+```{r}
+prob_crew_survived <- titanic %>%
+  filter(Survived == "Yes", crew == TRUE) %>%
+  summarise(prob = n() / nrow(titanic))
+prob_crew_survived
+```
+
+```{r}
+prob_pass_survived <- titanic %>%
+  filter(Survived == "Yes", crew == FALSE) %>%
+  summarise(prob = n() / nrow(titanic))
+prob_pass_survived
+```
+#less than 5 on die
+```{r}
+less_than_5 <- rolldie(1) %>% 
+  filter(rolldie(1)<5)  
+  
+
+4/6 
+  
+```
+
+```{r}
+
+outcomes_combo_3 <- rolldie(3)
+
+outcomes_combo_3 %>% 
+  combinations(
+    n = 18,
+    r = 3,
+    v = 1:18,
+    repeats.allowed = TRUE
+  )
+
+outcomes_combo_3
+```
+
+```{r}
+
+
+```
+
