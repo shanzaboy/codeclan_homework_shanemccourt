@@ -326,6 +326,36 @@ prob_pass_survived</code></pre>
 </div>
 <!-- rnb-frame-end -->
 <!-- rnb-chunk-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHJvYl8zcmRwYXNzX3N1cnZpdmVkIDwtIHRpdGFuaWMgJT4lXG4gIGZpbHRlcihTdXJ2aXZlZCA9PSBcIlllc1wiLCBDbGFzcyA9PSBcIjNyZFwiKSAlPiVcbiAgc3VtbWFyaXNlKHByb2IgPSBuKCkgLyBucm93KHRpdGFuaWMpKVxucHJvYl8zcmRwYXNzX3N1cnZpdmVkXG5gYGAifQ== -->
+<pre class="r"><code>prob_3rdpass_survived &lt;- titanic %&gt;%
+  filter(Survived == &quot;Yes&quot;, Class == &quot;3rd&quot;) %&gt;%
+  summarise(prob = n() / nrow(titanic))
+prob_3rdpass_survived</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MSwibmNvbCI6MSwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIxIHggMSJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUExMVBTd3JDTUJDZGZxSzBZQlU4Und2aXhwMGI4UUNpMEczNlVZczFLV21LTGoyYUoydWRsQVJxSmt4bTV2SG04MDZIZEJ1bUlRQjQ0T1B6Q0taQUx1ZGp2QVB3WFN3Y2hBTVYzMGhhandCQXBPTCtDOXIraUlUUlo5bGlzcHFBZmlONFpoRUR3VitKSVMvUTNROStBNW85TWE5cGEwOE1DeXBwY2hYWWoxVnZ0Y3g1SXl2T3NNbFZOeE9yMlJFV3NPeVl1cVNJODN2SEh2RkdMZEJhUVYvbmFKL2thcVU3NkZGRWo1cVY3RmF4MHR4ZTA2eXNkUkdoNGxGdzBvaUtTYU1FMFRhUlhGTERDM05lRzJUVUJ2MFAydXhMb3FvQkFBQT0ifQ== -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["prob"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"0.125"}],"options":{"columns":{"min":{},"max":[10],"total":[1]},"rows":{"min":[10],"max":[10],"total":[1]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIHByb2JfMXN0cGFzc19zdXJ2aXZlZCA8LSB0aXRhbmljICU+JVxuICBmaWx0ZXIoU3Vydml2ZWQgPT0gXCJZZXNcIiwgQ2xhc3MgPT0gXCIxc3RcIikgJT4lXG4gIHN1bW1hcmlzZShwcm9iID0gbigpIC8gbnJvdyh0aXRhbmljKSlcbnByb2JfMXN0cGFzc19zdXJ2aXZlZFxuYGBgIn0= -->
+<pre class="r"><code> prob_1stpass_survived &lt;- titanic %&gt;%
+  filter(Survived == &quot;Yes&quot;, Class == &quot;1st&quot;) %&gt;%
+  summarise(prob = n() / nrow(titanic))
+prob_1stpass_survived</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MSwibmNvbCI6MSwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIxIHggMSJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUExMVBTdzZDTUJBZFB0VkFJcHA0RGxqb3hwMGI0d0dNSm16TFJ5VmlTMHFKTGoyYUp3T25wRTJ3MDB4bjV1WE41NTBPNlRaTVF3RHd3TWZuRVV5QlhNN0hlQWZndTFnNENBY3F2cEcwSGdHQVNNWDlGN1Q5RVFtano3TEZaRFVCL1Vid3pDSUdncjhTUTE2Z3V4LzhCalI3WWw3VDFwNFlGbFRTNUNxd0g2dmVhcG56UmxhY1laT3JiaVpXc3lNc1lOa3hkVWtSNS9lT1BlS05XcUMxZ3I3TzBUN0oxVXAzMEtPSUhqVXIyYTFpcGJtOXBsbFo2eUpDeGFQZ3BCRVZrMFlKb20waXVhU0dGK2E4TnNpb0Rmb2Z2SXFwQjZvQkFBQT0ifQ== -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["prob"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"0.125"}],"options":{"columns":{"min":{},"max":[10],"total":[1]},"rows":{"min":[10],"max":[10],"total":[1]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>#less than 5 on die</p>
 <!-- rnb-text-end -->
@@ -370,7 +400,7 @@ outcomes_combo_3 %&gt;%
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKYGBge3J9CmxpYnJhcnkocHJvYikKbGlicmFyeShndG9vbHMpCmxpYnJhcnkodGlkeXZlcnNlKQpgYGAKCmBgYHtyfQp0aXRhbmljIDwtIGFzX3RpYmJsZShUaXRhbmljKQoKdGl0YW5pYwpgYGAKYGBge3J9CiNjaGFuZ2UgdG8gY3JldyBUUlVFIG9yIEZBTFNFCgp0aXRhbmljIDwtIHRpdGFuaWMgJT4lIAogIG11dGF0ZShjcmV3ID0gaWZlbHNlKENsYXNzID09ICJDcmV3IiwgVFJVRSwgRkFMU0UpKQoKdGl0YW5pYwoKCmBgYAoKYGBge3J9CnByb2JfY3Jld19zdXJ2aXZlZCA8LSB0aXRhbmljICU+JQogIGZpbHRlcihTdXJ2aXZlZCA9PSAiWWVzIiwgY3JldyA9PSBUUlVFKSAlPiUKICBzdW1tYXJpc2UocHJvYiA9IG4oKSAvIG5yb3codGl0YW5pYykpCnByb2JfY3Jld19zdXJ2aXZlZApgYGAKCmBgYHtyfQpwcm9iX3Bhc3Nfc3Vydml2ZWQgPC0gdGl0YW5pYyAlPiUKICBmaWx0ZXIoU3Vydml2ZWQgPT0gIlllcyIsIGNyZXcgPT0gRkFMU0UpICU+JQogIHN1bW1hcmlzZShwcm9iID0gbigpIC8gbnJvdyh0aXRhbmljKSkKcHJvYl9wYXNzX3N1cnZpdmVkCmBgYAojbGVzcyB0aGFuIDUgb24gZGllCmBgYHtyfQpsZXNzX3RoYW5fNSA8LSByb2xsZGllKDEpICU+JSAKICBmaWx0ZXIocm9sbGRpZSgxKTw1KSAgCiAgCgo0LzYgCiAgCmBgYAoKYGBge3J9CgpvdXRjb21lc19jb21ib18zIDwtIHJvbGxkaWUoMykKCm91dGNvbWVzX2NvbWJvXzMgJT4lIAogIGNvbWJpbmF0aW9ucygKICAgIG4gPSAxOCwKICAgIHIgPSAzLAogICAgdiA9IDE6MTgsCiAgICByZXBlYXRzLmFsbG93ZWQgPSBUUlVFCiAgKQoKb3V0Y29tZXNfY29tYm9fMwpgYGAKCmBgYHtyfQoKCmBgYAoK</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKYGBge3J9CmxpYnJhcnkocHJvYikKbGlicmFyeShndG9vbHMpCmxpYnJhcnkodGlkeXZlcnNlKQpgYGAKCmBgYHtyfQp0aXRhbmljIDwtIGFzX3RpYmJsZShUaXRhbmljKQoKdGl0YW5pYwpgYGAKYGBge3J9CiNjaGFuZ2UgdG8gY3JldyBUUlVFIG9yIEZBTFNFCgp0aXRhbmljIDwtIHRpdGFuaWMgJT4lIAogIG11dGF0ZShjcmV3ID0gaWZlbHNlKENsYXNzID09ICJDcmV3IiwgVFJVRSwgRkFMU0UpKQoKdGl0YW5pYwoKCmBgYAoKYGBge3J9CnByb2JfY3Jld19zdXJ2aXZlZCA8LSB0aXRhbmljICU+JQogIGZpbHRlcihTdXJ2aXZlZCA9PSAiWWVzIiwgY3JldyA9PSBUUlVFKSAlPiUKICBzdW1tYXJpc2UocHJvYiA9IG4oKSAvIG5yb3codGl0YW5pYykpCnByb2JfY3Jld19zdXJ2aXZlZApgYGAKCmBgYHtyfQpwcm9iX3Bhc3Nfc3Vydml2ZWQgPC0gdGl0YW5pYyAlPiUKICBmaWx0ZXIoU3Vydml2ZWQgPT0gIlllcyIsIGNyZXcgPT0gRkFMU0UpICU+JQogIHN1bW1hcmlzZShwcm9iID0gbigpIC8gbnJvdyh0aXRhbmljKSkKcHJvYl9wYXNzX3N1cnZpdmVkCmBgYApgYGB7cn0KcHJvYl8zcmRwYXNzX3N1cnZpdmVkIDwtIHRpdGFuaWMgJT4lCiAgZmlsdGVyKFN1cnZpdmVkID09ICJZZXMiLCBDbGFzcyA9PSAiM3JkIikgJT4lCiAgc3VtbWFyaXNlKHByb2IgPSBuKCkgLyBucm93KHRpdGFuaWMpKQpwcm9iXzNyZHBhc3Nfc3Vydml2ZWQKYGBgCmBgYHtyfQogcHJvYl8xc3RwYXNzX3N1cnZpdmVkIDwtIHRpdGFuaWMgJT4lCiAgZmlsdGVyKFN1cnZpdmVkID09ICJZZXMiLCBDbGFzcyA9PSAiMXN0IikgJT4lCiAgc3VtbWFyaXNlKHByb2IgPSBuKCkgLyBucm93KHRpdGFuaWMpKQpwcm9iXzFzdHBhc3Nfc3Vydml2ZWQKYGBgCgoKCiNsZXNzIHRoYW4gNSBvbiBkaWUKYGBge3J9Cmxlc3NfdGhhbl81IDwtIHJvbGxkaWUoMSkgJT4lIAogIGZpbHRlcihyb2xsZGllKDEpPDUpICAKICAKCjQvNiAKICAKYGBgCgpgYGB7cn0KCm91dGNvbWVzX2NvbWJvXzMgPC0gcm9sbGRpZSgzKQoKb3V0Y29tZXNfY29tYm9fMyAlPiUgCiAgY29tYmluYXRpb25zKAogICAgbiA9IDE4LAogICAgciA9IDMsCiAgICB2ID0gMToxOCwKICAgIHJlcGVhdHMuYWxsb3dlZCA9IFRSVUUKICApCgpvdXRjb21lc19jb21ib18zCmBgYAoKYGBge3J9CgoKYGBgCgo=</div>
 
 
 

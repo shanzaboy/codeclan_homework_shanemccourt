@@ -38,6 +38,21 @@ prob_pass_survived <- titanic %>%
   summarise(prob = n() / nrow(titanic))
 prob_pass_survived
 ```
+```{r}
+prob_3rdpass_survived <- titanic %>%
+  filter(Survived == "Yes", Class == "3rd") %>%
+  summarise(prob = n() / nrow(titanic))
+prob_3rdpass_survived
+```
+```{r}
+ prob_1stpass_survived <- titanic %>%
+  filter(Survived == "Yes", Class == "1st") %>%
+  summarise(prob = n() / nrow(titanic))
+prob_1stpass_survived
+```
+
+
+
 #less than 5 on die
 ```{r}
 less_than_5 <- rolldie(1) %>% 
