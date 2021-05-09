@@ -9,10 +9,10 @@ library(gtools)
 library(tidyverse)
 ```
 
-```{r}
+```{r}         
 titanic <- as_tibble(Titanic)
 
-titanic
+unique(titanic$Class)
 ```
 ```{r}
 #change to crew TRUE or FALSE

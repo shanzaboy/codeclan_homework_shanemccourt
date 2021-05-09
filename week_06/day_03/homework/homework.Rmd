@@ -1,0 +1,133 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(janitor)
+library(infer)
+```
+
+```{r}
+ames <- read_csv("data/ames.csv") %>% 
+  clean_names()
+
+ames
+```
+
+```{r}
+summary(ames$sale_price)
+```
+
+
+2.2 Question 2
+Plot a histogram of sale_price. Is the distribution normal?
+
+distribution right skewed
+```{r}
+
+ames %>% 
+  ggplot() +
+  aes(x = sale_price) +
+  geom_histogram(col = "white")
+```
+
+
+2.3 Question 3
+Calculate the population parameter mean of sale_price. Store it in a variable, as we’ll need this value later when we check if each CI contains the parameter value or not.
+
+population parameters
+
+```{r}
+
+
+summary_sale_price <- ames %>% 
+  summarise(
+    mean_sale_price = mean(sale_price)
+    
+  )
+
+summary_sale_price
+```
+2.4 Question 4
+Now we are going to: - take 1000 random samples each of size 100 from sale_price in ames - create a boostrap sampling distribution of mean(sale_price) from each 100-observation sample (use 1000 reps) - calculate the 95% CI for each bootstrap distribution - store the upper and lower bounds of the CI in a tibble called results
+
+Use the infer workflow to generate the bootstrap distributions and CIs. This code will be pretty hard to write. Think about wrapping the sample creation and infer code in a for loop to generate 1000 random samples and CIs. Create an empty results tibble before the loop, and bind_rows() to it every time you generate a new set of CI bounds.
+
+There’s an outline of the code below, and the full solution below that (if you get stuck). Have a go, but don’t spend too long on this, it’s more important to spend your time thinking about CIs!
+
+
+```{r}
+rep_sample_100 <- ames %>% 
+  rep_sample_n(size = 100, reps = 1) %>%
+  ungroup() %>% 
+  select(sale_price)
+```
+
+
+```{r}
+
+  
+infer_resample_1000 <- rep_sample_100 %>% 
+  specify(response = sale_price) %>% 
+  generate(reps = 1000, type = "bootstrap") %>% 
+  calculate(stat = "mean")
+```
+
+```{r}
+results <- tibble()
+for (sample_num in 1:1000){
+
+  # get a new 100-observation random sample from ames
+  this_sample <- ames %>%
+    rep_sample_n(size = 100, reps = 1) %>%
+    ungroup() %>%
+    select(sale_price)
+  
+  # create a bootstrap distribution of mean(sale_price)
+  # use 1000 reps
+  this_bootstrap <- this_sample %>%
+    specify(response = sale_price) %>%
+    generate(reps = 1000, type = "bootstrap") %>%
+    calculate(stat = "mean")
+
+  # get 95% CI for this bootstrap distribution
+  this_ci <- this_bootstrap %>%
+    get_ci(level = 0.95, type = "percentile")
+  
+  # prepare new row for results, storing CI bounds
+  this_result <- c(
+    sample_num = sample_num, 
+    lower = this_ci %>% 
+      pull(lower_ci), 
+    upper = this_ci %>%
+      pull(upper_ci)
+  )
+  
+  # add this_result to growing tibble of results
+  results <- results %>%
+    bind_rows(this_result)
+}
+```
+
+
+purrr way to do stuff
+
+```{r}
+bootstrap_ci <- function(data){
+  data %>% 
+  slice_sample(n = 100) %>% 
+  specify(response = sale_price) %>% 
+  generate(reps = 1, type = "bootstrap") %>% 
+  calculate(stat = "mean") %>% 
+  get_confidence_interval(level = 0.95)
+}
+results <- map_dfr(1:1000, ~bootstrap_ci(ames)) %>% mutate(sample_num = row_number())
+```
+
+2.5 Question 5
+Pipe results to mutate() to add a new variable popn_param_in_ci which will be TRUE if the population parameter we calculated earlier is between lower and upper, and FALSE otherwise.
+
+[Hint if you stored your parameter in a tibble earlier (e.g. as the result of a summarise() pipe), extract it here as a numeric before you compare with upper and lower]
+
