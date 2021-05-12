@@ -1,0 +1,175 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(lubridate)
+library(tsibble)
+library(tsibbledata)
+library(sf)
+library(leaflet)
+library(lubridate)
+
+```
+
+```{r}
+bikes <- nyc_bikes
+
+summary(bikes)
+
+index_var(bikes)
+```
+
+basic stats needed
+
+mean journey time
+most used - month and times 
+breakdown of demographics over time 
+
+
+```{r}
+bikes
+```
+
+Average journey length for each station
+
+```{r}
+bikes %>% 
+  as_tibble() %>% 
+  group_by(start_station) %>%  
+  mutate(journey = stop_time - start_time) %>% 
+  select(journey) %>% 
+ summarise(mean_journey = mean(journey)) %>% 
+  ggplot() +
+  aes(x = start_station, y = mean_journey) + 
+  theme(axis.text.x = element_text(angle = -90))+
+  ylab("average journey in minutes") +
+  geom_point()
+
+```
+
+most used stations
+
+```{r}
+bike_df <- bikes %>% as_tibble()
+```
+
+```{r}
+bike_df %>% 
+  group_by(start_station) %>% 
+  summarise(count = n()) %>% 
+  arrange(desc(count)) %>% 
+  ggplot() +
+  aes(x = start_station, y = count) +
+  geom_col()
+```
+
+
+counts by year 
+
+```{r}
+bikes %>% 
+  index_by(year = year(start_time)) %>% 
+  summarise(count = n())
+```
+month count to show seasonality  - clearly the summer months is when they are used much more frequently.
+
+```{r}
+bike_month <- bikes %>% 
+  index_by(month = month(start_time, label = TRUE)) %>% 
+  summarise(count = n())
+
+bike_month
+```
+```{r}
+bike_month %>%
+  ggplot() +
+  aes(x = month, y = count, fill = "red") +
+  geom_col()  
+  
+```
+
+day analysis to see if any days are more favoured
+```{r}
+bike_day <- bikes %>% 
+  index_by(day = wday(start_time, label= TRUE)) %>% 
+  summarise(count = n()) 
+
+bike_day
+```
+```{r}
+bike_day %>% 
+  ggplot() +
+  aes(x = day, y = count, fill = "red") +
+  geom_col()
+```
+
+
+
+```{r}
+bikes %>% 
+  index_by(day = wday(start_time, label = TRUE)) %>% 
+  ggplot() +
+  aes(x = day, fill = gender) +
+  geom_bar() +
+  facet_wrap(~gender)+
+  coord_flip()
+
+```
+
+```{r}
+bikes %>% 
+  index_by(month = month(start_time, label = TRUE) ) %>% 
+  ggplot() +
+  aes(x = month, fill = gender) +
+  geom_bar() +
+  ggtitle("Bike hire split by gender")
+```
+
+
+bike useage over 24hrs split by gender 
+```{r}
+bikes %>% 
+  index_by(time = hour(start_time)) %>% 
+  ggplot() +
+  aes(x = time, fill = gender) +
+  geom_bar() +
+  xlab("useage over 24hrs")
+```
+
+
+Bike Stations
+```{r}
+leaflet(bikes_clean) %>% 
+  addTiles() %>% 
+  addMarkers(lng = ~start_long, lat = ~start_lat)
+
+
+```
+
+```{r}
+
+bikes_clean <- bikes %>% 
+  mutate_at(vars(start_lat, start_long, end_lat, end_long), as.numeric) 
+
+
+```
+
+
+
+Start points
+```{r}
+leaflet(bikes_clean) %>% 
+  addTiles() %>% 
+  addMarkers(lng = ~start_long, lat = ~start_lat, clusterOptions = markerClusterOptions())
+```
+end points
+```{r}
+
+leaflet(bikes_clean) %>% 
+  addTiles() %>% 
+  addMarkers(lng = ~end_long, lat = ~end_lat, clusterOptions = markerClusterOptions())
+```
+
