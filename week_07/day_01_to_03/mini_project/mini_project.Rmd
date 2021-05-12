@@ -1,9 +1,14 @@
 ---
-title: "R Notebook"
-output: html_notebook
+title: "NYC Citi Bikes"
+output:
+  html_document:
+    df_print: paged
 ---
 
-```{r}
+
+
+
+```{r echo = FALSE}
 library(tidyverse)
 library(lubridate)
 library(tsibble)
@@ -14,7 +19,7 @@ library(lubridate)
 
 ```
 
-```{r}
+```{r echo = FALSE}
 bikes <- nyc_bikes
 
 summary(bikes)
@@ -22,11 +27,125 @@ summary(bikes)
 index_var(bikes)
 ```
 
-basic stats needed
+# Background
 
-mean journey time
-most used - month and times 
-breakdown of demographics over time 
+Citi Bike is New York City’s bike share system, and the largest in the nation. Citi Bike launched in May 2013 and has become an essential part of our transportation network. It's fun, efficient and affordable – not to mention healthy and good for the environment.
+
+Fig1 shows the current bike stations from the data set provided.
+
+Fig1 Bike Stations
+
+```{r echo =FALSE}
+
+bikes_clean <- bikes %>% 
+  mutate_at(vars(start_lat, start_long, end_lat, end_long), as.numeric) 
+
+
+```
+
+```{r echo =FALSE}
+
+leaflet(bikes_clean) %>% 
+  addTiles() %>% 
+  addMarkers(lng = ~start_long, lat = ~start_lat, clusterOptions = markerClusterOptions())
+```
+
+## Aim of report
+
+The report aims to answer a number of business questions namely:
+
+1. What is the pattern of bike hires over time (e.g. within a year, month, week, or day)?
+2. Do bike hire patterns differ between bike rider demographics? (e.g. gender, type of trip, age)
+3. Any other insights?
+
+## Data used
+
+The report draws from data collected through the system for 2018. All names of users have been anonymised in line with current guidelines and ethical considerations.
+
+## Dataflow diagram
+
+  insert XXXXX
+
+
+
+
+## Data Cleaning
+
+Data cleaning consisted initially of converting to suitable format to produce some summary statistics. Secondly this was further wrangled to allow for time series manipulation and visualisation of the findings.
+
+## Report findings
+
+The following is split between each of the business questions:
+
+### What is the pattern of bike hires over time (e.g. within a year, month, week, or day)?
+
+From the graphs below it can be seen that the basic useage is not only seasonal but also certain during the weekdays with rush hours typically having more useage.
+
+Fig2 Seasonality
+
+It can be seen that the summer months attract more bike usage as expected with higher temperatures being experienced.
+
+
+```{r}
+bike_month <- bikes %>% 
+  index_by(month = month(start_time, label = TRUE)) %>% 
+  summarise(count = n())
+
+bike_month
+```
+```{r echo =FALSE}
+bike_month %>%
+  ggplot() +
+  aes(x = month, y = count, fill = "red") +
+  geom_col()  
+  
+```
+Fig3 Days in week
+
+Again from the graph below it can be seen that the weekdays experience a marginally higher usage.
+
+```{r}
+bike_day <- bikes %>% 
+  index_by(day = wday(start_time, label= TRUE)) %>% 
+  summarise(count = n()) 
+
+bike_day
+```
+```{r}
+bike_day %>% 
+  ggplot() +
+  aes(x = day, y = count, fill = "red") +
+  geom_col()
+```
+
+Fig4 Time of day
+
+From the following graph it can be seen that the usage of the scheme spikes around the rush hours of travelling to and from work 
+
+INSERT GRAPH
+
+### Do bike hire patterns differ between bike rider demographics? (e.g. gender, type of trip, age)
+
+It can be seen that ther is a difference between gender usage. Typically more males are using the scheme.
+
+Fig5 Demographic split
+INSERT GRAPH 
+
+### Other insights
+
+The top 5 stations in terms of usage are:
+
+INSERT TOP 5
+
+Average journey times are:
+
+INSERT AVERAGE JOURNEY TIMES 
+
+
+## Conclusion and next steps
+While the scheme is a success for usage, there is room to improve for inclusiveness and reason for trips. 
+
+There is an opportunity here to market the scheme to females to improve adoption rates. Also Fig4 suggests an off peak charge may improve usage during the day.
 
 
 ```{r}
@@ -57,13 +176,14 @@ bike_df <- bikes %>% as_tibble()
 ```
 
 ```{r}
-bike_df %>% 
+most_used <- bikes %>% 
+  as_tibble() %>% 
   group_by(start_station) %>% 
   summarise(count = n()) %>% 
   arrange(desc(count)) %>% 
-  ggplot() +
-  aes(x = start_station, y = count) +
-  geom_col()
+  head(1)
+
+most_used
 ```
 
 
@@ -129,25 +249,19 @@ bikes %>%
 ```
 
 
-bike useage over 24hrs split by gender 
+bike useage over 24hrs
 ```{r}
 bikes %>% 
   index_by(time = hour(start_time)) %>% 
   ggplot() +
-  aes(x = time, fill = gender) +
+  aes(x = time, fill = "red") +
   geom_bar() +
   xlab("useage over 24hrs")
 ```
 
 
 Bike Stations
-```{r}
-leaflet(bikes_clean) %>% 
-  addTiles() %>% 
-  addMarkers(lng = ~start_long, lat = ~start_lat)
 
-
-```
 
 ```{r}
 
@@ -157,7 +271,13 @@ bikes_clean <- bikes %>%
 
 ```
 
+```{r}
+leaflet(bikes_clean) %>% 
+  addTiles() %>% 
+  addMarkers(lng = ~start_long, lat = ~start_lat)
 
+
+```
 
 Start points
 ```{r}

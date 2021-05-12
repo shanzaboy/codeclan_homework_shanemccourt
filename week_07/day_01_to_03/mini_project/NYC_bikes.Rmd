@@ -1,0 +1,238 @@
+---
+title: "NYC Citi Bike Analysis"
+date: "12/05/2021"
+author: "S McCourt" 
+
+
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: true
+    df_print: paged
+  
+ 
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+
+```{r echo = FALSE, message =FALSE}
+library(tidyverse)
+library(lubridate)
+library(tsibble)
+library(tsibbledata)
+library(sf)
+library(leaflet)
+library(lubridate)
+
+```
+
+```{r echo = FALSE, results=FALSE}
+bikes <- nyc_bikes
+
+summary(bikes)
+
+index_var(bikes)
+```
+
+
+# Background
+
+Citi Bike is New York City’s bike share system, and the largest in the nation. Citi Bike launched in May 2013 and has become an essential part of our transportation network. It's fun, efficient and affordable – not to mention healthy and good for the environment.
+
+Bike Station Locations
+```{r echo = FALSE}
+
+bikes_clean <- bikes %>% 
+  mutate_at(vars(start_lat, start_long, end_lat, end_long), as.numeric) 
+
+
+```
+
+```{r echo =FALSE}
+
+leaflet(bikes_clean) %>% 
+  addTiles() %>% 
+  addMarkers(lng = ~start_long, lat = ~start_lat, clusterOptions = markerClusterOptions())
+```
+
+# Report Analysis
+## Aim
+
+The report aims to answer a number of business questions namely:
+
+1. What is the pattern of bike hires over time (e.g. within a year, month, week, or day)?
+2. Do bike hire patterns differ between bike rider demographics? (e.g. gender, type of trip, age)
+3. Any other insights?
+
+## Data used
+
+The report draws from data collected through the system for 2018. All names of users have been anonymised in line with current guidelines and ethical considerations.
+
+## Data Cleaning
+
+Data cleaning consisted initially of converting to suitable format to produce some summary statistics. Secondly this was further wrangled to allow for time series manipulation and visualisation of the findings.
+
+# Report findings
+
+The following is split between each of the business questions:
+
+**What is the pattern of bike hires over time (e.g. within a year, month, week, or day)?**
+
+From the graphs below it can be seen that the basic useage is not only seasonal but also certain during the weekdays with rush hours typically having more useage.
+
+**1. Seasonality**
+
+It can be seen that the summer months attract more bike usage as expected with higher temperatures being experienced.
+
+```{r echo = FALSE, results = FALSE}
+bike_month <- bikes %>% 
+  index_by(month = month(start_time, label = TRUE)) %>% 
+  summarise(count = n())
+
+bike_month
+```
+
+```{r}
+bike_month %>%
+  ggplot() +
+  aes(x = month, y = count, fill = "red") +
+  geom_col() +
+  ggtitle("Seasonality") +
+  theme(legend.position="none")
+  
+```
+
+**2. Days in week**
+
+Again from the graph below it can be seen that the weekdays experience a marginally higher usage.
+
+```{r echo = FALSE, results = FALSE}
+bike_day <- bikes %>% 
+  index_by(day = wday(start_time, label= TRUE)) %>% 
+  summarise(count = n()) 
+
+bike_day
+```
+```{r}
+bike_day %>% 
+  ggplot() +
+  aes(x = day, y = count, fill = "red") +
+  geom_col() +
+  ggtitle("Usage over a week") +
+  theme(legend.position="none")
+```
+
+**3. Time of day**
+
+From the following graph it can be seen that the usage of the scheme spikes around the rush hours of travelling to and from work 
+
+```{r}
+bikes %>% 
+  index_by(time = hour(start_time)) %>% 
+  ggplot() +
+  aes(x = time, fill = "red") +
+  geom_bar() +
+  xlab("Usage over 24hrs") +
+  ggtitle("24hr usage") +
+  theme(legend.position="none")
+```
+
+**Do bike hire patterns differ between bike rider demographics? (e.g. gender, type of trip, age)**
+
+The data provided does not provide information on the users apart from the gender split, so a detailed demographic analysis could not occur.
+
+**1. Demographic**
+
+It can be seen that there is a difference between gender usage. Typically more males are using the scheme.
+
+```{r}
+bikes %>% 
+  index_by(month = month(start_time, label = TRUE) ) %>% 
+  ggplot() +
+  aes(x = month, fill = gender) +
+  geom_bar() +
+  ggtitle("Bike hire split by gender")
+```
+
+**2. Age analysis**
+
+During the age analysis a spike of birth year to be in the 1960's was identified. This is thought to be an error in the data, however it has been left in to investigate more thoroughly if required.
+
+```{r echo = FALSE}
+mean_age <- bikes %>% as_tibble() %>% 
+  filter(birth_year > 1946) %>% 
+  summarise(mean_age = mean(year(today())- birth_year))
+```
+
+Typically more males with a mean age of `r mean_age` 
+
+```{r}
+
+
+bikes %>% 
+  filter(birth_year > 1946) %>% 
+  index_by(birth_year) %>% 
+   
+  ggplot() +
+  aes(x = birth_year, fill = gender) +
+  geom_bar() +
+  ggtitle("Age analysis")
+ 
+          
+```
+**Other insights**
+
+Some other insights from data are as follows:
+
+**Top 5 start stations in terms of usage are:**
+
+```{r}
+bikes %>% 
+  as_tibble() %>% 
+  group_by(start_station) %>% 
+  summarise(count = n()) %>% 
+  arrange(desc(count)) %>% 
+  head(5)
+```
+
+**Top 5 end stations in terms of usage are:**
+
+```{r}
+bikes %>% 
+  as_tibble() %>% 
+  group_by(end_station) %>% 
+  summarise(count = n()) %>% 
+  arrange(desc(count)) %>% 
+  head(5)
+```
+
+**Average journey times by station are:**
+
+```{r message = FALSE}
+bikes %>% 
+  as_tibble() %>% 
+  group_by(start_station) %>%  
+  mutate(journey = stop_time - start_time) %>% 
+  select(journey) %>% 
+ summarise(mean_journey = mean(journey)) %>% 
+  ggplot() +
+  aes(x = start_station, y = mean_journey) + 
+  theme(axis.text.x = element_text(angle = -90))+
+  ylab("average journey in minutes") +
+  geom_point()
+
+```
+
+
+# Conclusion and next steps
+While the scheme is a success for usage, there is room to improve for inclusiveness and using it for leisure trips. 
+
+There is an opportunity here to market the scheme to females to improve adoption rates and also older people. 
+
+With the day usage spiking around peak times suggests an off peak charge may also improve usage during the day.
+
