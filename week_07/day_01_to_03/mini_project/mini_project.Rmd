@@ -176,12 +176,13 @@ bike_df <- bikes %>% as_tibble()
 ```
 
 ```{r}
-most_used <- bikes %>% 
+most_used_week <- bikes %>% 
   as_tibble() %>% 
+  filter()
   group_by(start_station) %>% 
   summarise(count = n()) %>% 
   arrange(desc(count)) %>% 
-  head(1)
+  head(5)
 
 most_used
 ```
@@ -248,6 +249,30 @@ bikes %>%
   ggtitle("Bike hire split by gender")
 ```
 
+birth year age analysis
+
+```{r}
+
+
+bikes %>% 
+  filter(birth_year > 1946) %>% 
+  index_by(birth_year) %>% 
+   
+  ggplot() +
+  aes(x = birth_year, fill = gender) +
+  geom_bar() +
+  ggtitle("Age analysis")
+ 
+          
+```
+
+mean age
+
+```{r}
+mean_age <- bikes %>% as_tibble() %>% 
+  filter(birth_year > 1946) %>% 
+  summarise(mean_age = mean(year(today())- birth_year))
+```
 
 bike useage over 24hrs
 ```{r}
@@ -256,7 +281,9 @@ bikes %>%
   ggplot() +
   aes(x = time, fill = "red") +
   geom_bar() +
-  xlab("useage over 24hrs")
+  xlab("useage over 24hrs") +
+  theme(legend.position="none")
+  
 ```
 
 
@@ -291,5 +318,14 @@ end points
 leaflet(bikes_clean) %>% 
   addTiles() %>% 
   addMarkers(lng = ~end_long, lat = ~end_lat, clusterOptions = markerClusterOptions())
+```
+
+```{r}
+bikes %>% 
+  as_tibble() %>% 
+  group_by(start_station) %>% 
+  summarise(count = n()) %>% 
+  arrange(desc(count)) %>% 
+  head(5)
 ```
 
