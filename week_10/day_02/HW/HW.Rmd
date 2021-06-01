@@ -1,0 +1,120 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(janitor)
+library(GGally)
+library(ggfortify)
+library(fastDummies)
+```
+
+
+```{r}
+diamond <- read_csv("data/diamonds.csv")
+
+diamond
+```
+
+```{r}
+ggpairs(diamond, progress = FALSE)
+```
+check 
+
+```{r}
+alias(lm(price ~ . , data = diamond))
+```
+
+
+
+correlations between the XYZ and carat is high so lets drop in favour of carat 
+
+```{r}
+diamond_clean <- diamond %>%
+  select(-c("x", "y", "z"))
+  
+diamond_clean
+```
+
+```{r}
+ggpairs(diamond_clean, progress = FALSE)
+```
+
+```{r}
+diamond_clean %>% 
+  ggplot() +
+  aes(x = price, y = carat) +
+  geom_point()
+```
+
+```{r}
+
+model <- lm(price ~ carat, data = diamond_clean)
+```
+
+```{r}
+autoplot(model)
+```
+
+```{r}
+summary(model)
+```
+
+
+```{r}
+diamond %>% 
+  distinct(cut)
+```
+
+```{r}
+lm(price ~ cut, data = diamond)
+```
+
+```{r}
+diamond %>% 
+  distinct(clarity)
+```
+```{r}
+
+lm(price ~ clarity, data = diamond)
+
+```
+
+```{r}
+diamond %>% 
+  distinct(color)
+```
+
+```{r}
+
+lm(price ~ color, data = diamond)
+
+```
+
+
+```{r}
+diamond_dummy <- diamond_clean %>%
+  fastDummies::dummy_cols(select_columns = "cut", remove_first_dummy = TRUE, remove_selected_columns = TRUE) %>% 
+   fastDummies::dummy_cols(select_columns = "clarity", remove_first_dummy = TRUE, remove_selected_columns = TRUE) %>%
+   fastDummies::dummy_cols(select_columns = "color", remove_first_dummy = TRUE, remove_selected_columns = TRUE) 
+  
+
+diamond_dummy
+```
+has dropped one column as per required in all cases.
+```{r}
+model <- lm(price ~ carat, data = diamond_dummy)
+```
+```{r}
+summary(model)
+```
+
+```{r}
+model2 <- lm(price ~ carat + clarity, data = diamond_dummy)
+```
+```{r}
+summary(model2)
+```
+
