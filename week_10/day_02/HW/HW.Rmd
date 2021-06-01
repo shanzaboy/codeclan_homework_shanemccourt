@@ -112,7 +112,7 @@ summary(model)
 ```
 
 ```{r}
-model2 <- lm(price ~ carat + clarity, data = diamond_dummy)
+model2 <- lm(price ~ carat + clarity + color + cut, data = diamond_clean)
 ```
 ```{r}
 summary(model2)

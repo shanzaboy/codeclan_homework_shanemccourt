@@ -510,22 +510,56 @@ F-statistic: 3.041e+05 on 1 and 53938 DF,  p-value: &lt; 2.2e-16</code></pre>
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubW9kZWwyIDwtIGxtKHByaWNlIH4gY2FyYXQgKyBjbGFyaXR5LCBkYXRhID0gZGlhbW9uZF9kdW1teSlcbmBgYCJ9 -->
-<pre class="r"><code>model2 &lt;- lm(price ~ carat + clarity, data = diamond_dummy)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubW9kZWwyIDwtIGxtKHByaWNlIH4gY2FyYXQgKyBjbGFyaXR5ICsgY29sb3IgKyBjdXQsIGRhdGEgPSBkaWFtb25kX2NsZWFuKVxuYGBgIn0= -->
+<pre class="r"><code>model2 &lt;- lm(price ~ carat + clarity + color + cut, data = diamond_clean)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gZXZhbChwcmVkdmFycywgZGF0YSwgZW52KSA6IG9iamVjdCAnY2xhcml0eScgbm90IGZvdW5kXG4ifQ== -->
-<pre><code>Error in eval(predvars, data, env) : object &#39;clarity&#39; not found</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3VtbWFyeShtb2RlbDIpXG5gYGAifQ== -->
 <pre class="r"><code>summary(model2)</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG5DYWxsOlxubG0oZm9ybXVsYSA9IHByaWNlIH4gY2FyYXQgKyBjbGFyaXR5ICsgY29sb3IgKyBjdXQsIGRhdGEgPSBkaWFtb25kX2NsZWFuKVxuXG5SZXNpZHVhbHM6XG4gICAgIE1pbiAgICAgICAxUSAgIE1lZGlhbiAgICAgICAzUSAgICAgIE1heCBcbi0xNjgxMy41ICAgLTY4MC40ICAgLTE5Ny42ICAgIDQ2Ni40ICAxMDM5NC45IFxuXG5Db2VmZmljaWVudHM6XG4gICAgICAgICAgICAgRXN0aW1hdGUgU3RkLiBFcnJvciB0IHZhbHVlIFByKD58dHwpICAgIFxuKEludGVyY2VwdCkgIC03MzYyLjgwICAgICAgNTEuNjggLTE0Mi40NiAgIDwyZS0xNiAqKipcbmNhcmF0ICAgICAgICAgODg4Ni4xMyAgICAgIDEyLjAzICA3MzguNDQgICA8MmUtMTYgKioqXG5jbGFyaXR5SUYgICAgIDU0MTkuNjUgICAgICA1Mi4xNCAgMTAzLjk1ICAgPDJlLTE2ICoqKlxuY2xhcml0eVNJMSAgICAzNTczLjY5ICAgICAgNDQuNjAgICA4MC4xMyAgIDwyZS0xNiAqKipcbmNsYXJpdHlTSTIgICAgMjYyNS45NSAgICAgIDQ0Ljc5ICAgNTguNjMgICA8MmUtMTYgKioqXG5jbGFyaXR5VlMxICAgIDQ1MzQuODggICAgICA0NS41NCAgIDk5LjU5ICAgPDJlLTE2ICoqKlxuY2xhcml0eVZTMiAgICA0MjE3LjgzICAgICAgNDQuODQgICA5NC4wNiAgIDwyZS0xNiAqKipcbmNsYXJpdHlWVlMxICAgNTA3Mi4wMyAgICAgIDQ4LjIxICAxMDUuMjAgICA8MmUtMTYgKioqXG5jbGFyaXR5VlZTMiAgIDQ5NjcuMjAgICAgICA0Ni44OSAgMTA1LjkzICAgPDJlLTE2ICoqKlxuY29sb3JFICAgICAgICAtMjExLjY4ICAgICAgMTguMzIgIC0xMS41NiAgIDwyZS0xNiAqKipcbmNvbG9yRiAgICAgICAgLTMwMy4zMSAgICAgIDE4LjUxICAtMTYuMzkgICA8MmUtMTYgKioqXG5jb2xvckcgICAgICAgIC01MDYuMjAgICAgICAxOC4xMiAgLTI3LjkzICAgPDJlLTE2ICoqKlxuY29sb3JIICAgICAgICAtOTc4LjcwICAgICAgMTkuMjcgIC01MC43OCAgIDwyZS0xNiAqKipcbmNvbG9ySSAgICAgICAtMTQ0MC4zMCAgICAgIDIxLjY1ICAtNjYuNTQgICA8MmUtMTYgKioqXG5jb2xvckogICAgICAgLTIzMjUuMjIgICAgICAyNi43MiAgLTg3LjAxICAgPDJlLTE2ICoqKlxuY3V0R29vZCAgICAgICAgNjU1Ljc3ICAgICAgMzMuNjMgICAxOS41MCAgIDwyZS0xNiAqKipcbmN1dElkZWFsICAgICAgIDk5OC4yNSAgICAgIDMwLjY2ICAgMzIuNTYgICA8MmUtMTYgKioqXG5jdXRQcmVtaXVtICAgICA4NjkuNDAgICAgICAzMC45MyAgIDI4LjExICAgPDJlLTE2ICoqKlxuY3V0VmVyeSBHb29kICAgODQ4LjcyICAgICAgMzEuMjggICAyNy4xNCAgIDwyZS0xNiAqKipcbi0tLVxuU2lnbmlmLiBjb2RlczogIDAg4oCYKioq4oCZIDAuMDAxIOKAmCoq4oCZIDAuMDEg4oCYKuKAmSAwLjA1IOKAmC7igJkgMC4xIOKAmCDigJkgMVxuXG5SZXNpZHVhbCBzdGFuZGFyZCBlcnJvcjogMTE1NyBvbiA1MzkyMSBkZWdyZWVzIG9mIGZyZWVkb21cbk11bHRpcGxlIFItc3F1YXJlZDogIDAuOTE1OSxcdEFkanVzdGVkIFItc3F1YXJlZDogIDAuOTE1OSBcbkYtc3RhdGlzdGljOiAzLjI2NGUrMDQgb24gMTggYW5kIDUzOTIxIERGLCAgcC12YWx1ZTogPCAyLjJlLTE2XG4ifQ== -->
+<pre><code>
+Call:
+lm(formula = price ~ carat + clarity + color + cut, data = diamond_clean)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-16813.5   -680.4   -197.6    466.4  10394.9 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  -7362.80      51.68 -142.46   &lt;2e-16 ***
+carat         8886.13      12.03  738.44   &lt;2e-16 ***
+clarityIF     5419.65      52.14  103.95   &lt;2e-16 ***
+claritySI1    3573.69      44.60   80.13   &lt;2e-16 ***
+claritySI2    2625.95      44.79   58.63   &lt;2e-16 ***
+clarityVS1    4534.88      45.54   99.59   &lt;2e-16 ***
+clarityVS2    4217.83      44.84   94.06   &lt;2e-16 ***
+clarityVVS1   5072.03      48.21  105.20   &lt;2e-16 ***
+clarityVVS2   4967.20      46.89  105.93   &lt;2e-16 ***
+colorE        -211.68      18.32  -11.56   &lt;2e-16 ***
+colorF        -303.31      18.51  -16.39   &lt;2e-16 ***
+colorG        -506.20      18.12  -27.93   &lt;2e-16 ***
+colorH        -978.70      19.27  -50.78   &lt;2e-16 ***
+colorI       -1440.30      21.65  -66.54   &lt;2e-16 ***
+colorJ       -2325.22      26.72  -87.01   &lt;2e-16 ***
+cutGood        655.77      33.63   19.50   &lt;2e-16 ***
+cutIdeal       998.25      30.66   32.56   &lt;2e-16 ***
+cutPremium     869.40      30.93   28.11   &lt;2e-16 ***
+cutVery Good   848.72      31.28   27.14   &lt;2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1157 on 53921 degrees of freedom
+Multiple R-squared:  0.9159,    Adjusted R-squared:  0.9159 
+F-statistic: 3.264e+04 on 18 and 53921 DF,  p-value: &lt; 2.2e-16</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKYGBge3J9CmxpYnJhcnkodGlkeXZlcnNlKQpsaWJyYXJ5KGphbml0b3IpCmxpYnJhcnkoR0dhbGx5KQpsaWJyYXJ5KGdnZm9ydGlmeSkKbGlicmFyeShmYXN0RHVtbWllcykKYGBgCgoKYGBge3J9CmRpYW1vbmQgPC0gcmVhZF9jc3YoImRhdGEvZGlhbW9uZHMuY3N2IikKCmRpYW1vbmQKYGBgCgpgYGB7cn0KZ2dwYWlycyhkaWFtb25kLCBwcm9ncmVzcyA9IEZBTFNFKQpgYGAKY2hlY2sgCgpgYGB7cn0KYWxpYXMobG0ocHJpY2UgfiAuICwgZGF0YSA9IGRpYW1vbmQpKQpgYGAKCgoKY29ycmVsYXRpb25zIGJldHdlZW4gdGhlIFhZWiBhbmQgY2FyYXQgaXMgaGlnaCBzbyBsZXRzIGRyb3AgaW4gZmF2b3VyIG9mIGNhcmF0IAoKYGBge3J9CmRpYW1vbmRfY2xlYW4gPC0gZGlhbW9uZCAlPiUKICBzZWxlY3QoLWMoIngiLCAieSIsICJ6IikpCiAgCmRpYW1vbmRfY2xlYW4KYGBgCgpgYGB7cn0KZ2dwYWlycyhkaWFtb25kX2NsZWFuLCBwcm9ncmVzcyA9IEZBTFNFKQpgYGAKCmBgYHtyfQpkaWFtb25kX2NsZWFuICU+JSAKICBnZ3Bsb3QoKSArCiAgYWVzKHggPSBwcmljZSwgeSA9IGNhcmF0KSArCiAgZ2VvbV9wb2ludCgpCmBgYAoKYGBge3J9Cgptb2RlbCA8LSBsbShwcmljZSB+IGNhcmF0LCBkYXRhID0gZGlhbW9uZF9jbGVhbikKYGBgCgpgYGB7cn0KYXV0b3Bsb3QobW9kZWwpCmBgYAoKYGBge3J9CnN1bW1hcnkobW9kZWwpCmBgYAoKCmBgYHtyfQpkaWFtb25kICU+JSAKICBkaXN0aW5jdChjdXQpCmBgYAoKYGBge3J9CmxtKHByaWNlIH4gY3V0LCBkYXRhID0gZGlhbW9uZCkKYGBgCgpgYGB7cn0KZGlhbW9uZCAlPiUgCiAgZGlzdGluY3QoY2xhcml0eSkKYGBgCmBgYHtyfQoKbG0ocHJpY2UgfiBjbGFyaXR5LCBkYXRhID0gZGlhbW9uZCkKCmBgYAoKYGBge3J9CmRpYW1vbmQgJT4lIAogIGRpc3RpbmN0KGNvbG9yKQpgYGAKCmBgYHtyfQoKbG0ocHJpY2UgfiBjb2xvciwgZGF0YSA9IGRpYW1vbmQpCgpgYGAKCgpgYGB7cn0KZGlhbW9uZF9kdW1teSA8LSBkaWFtb25kX2NsZWFuICU+JQogIGZhc3REdW1taWVzOjpkdW1teV9jb2xzKHNlbGVjdF9jb2x1bW5zID0gImN1dCIsIHJlbW92ZV9maXJzdF9kdW1teSA9IFRSVUUsIHJlbW92ZV9zZWxlY3RlZF9jb2x1bW5zID0gVFJVRSkgJT4lIAogICBmYXN0RHVtbWllczo6ZHVtbXlfY29scyhzZWxlY3RfY29sdW1ucyA9ICJjbGFyaXR5IiwgcmVtb3ZlX2ZpcnN0X2R1bW15ID0gVFJVRSwgcmVtb3ZlX3NlbGVjdGVkX2NvbHVtbnMgPSBUUlVFKSAlPiUKICAgZmFzdER1bW1pZXM6OmR1bW15X2NvbHMoc2VsZWN0X2NvbHVtbnMgPSAiY29sb3IiLCByZW1vdmVfZmlyc3RfZHVtbXkgPSBUUlVFLCByZW1vdmVfc2VsZWN0ZWRfY29sdW1ucyA9IFRSVUUpIAogIAoKZGlhbW9uZF9kdW1teQpgYGAKaGFzIGRyb3BwZWQgb25lIGNvbHVtbiBhcyBwZXIgcmVxdWlyZWQgaW4gYWxsIGNhc2VzLgpgYGB7cn0KbW9kZWwgPC0gbG0ocHJpY2UgfiBjYXJhdCwgZGF0YSA9IGRpYW1vbmRfZHVtbXkpCmBgYApgYGB7cn0Kc3VtbWFyeShtb2RlbCkKYGBgCgpgYGB7cn0KbW9kZWwyIDwtIGxtKHByaWNlIH4gY2FyYXQgKyBjbGFyaXR5LCBkYXRhID0gZGlhbW9uZF9kdW1teSkKYGBgCmBgYHtyfQpzdW1tYXJ5KG1vZGVsMikKYGBgCgo=</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKYGBge3J9CmxpYnJhcnkodGlkeXZlcnNlKQpsaWJyYXJ5KGphbml0b3IpCmxpYnJhcnkoR0dhbGx5KQpsaWJyYXJ5KGdnZm9ydGlmeSkKbGlicmFyeShmYXN0RHVtbWllcykKYGBgCgoKYGBge3J9CmRpYW1vbmQgPC0gcmVhZF9jc3YoImRhdGEvZGlhbW9uZHMuY3N2IikKCmRpYW1vbmQKYGBgCgpgYGB7cn0KZ2dwYWlycyhkaWFtb25kLCBwcm9ncmVzcyA9IEZBTFNFKQpgYGAKY2hlY2sgCgpgYGB7cn0KYWxpYXMobG0ocHJpY2UgfiAuICwgZGF0YSA9IGRpYW1vbmQpKQpgYGAKCgoKY29ycmVsYXRpb25zIGJldHdlZW4gdGhlIFhZWiBhbmQgY2FyYXQgaXMgaGlnaCBzbyBsZXRzIGRyb3AgaW4gZmF2b3VyIG9mIGNhcmF0IAoKYGBge3J9CmRpYW1vbmRfY2xlYW4gPC0gZGlhbW9uZCAlPiUKICBzZWxlY3QoLWMoIngiLCAieSIsICJ6IikpCiAgCmRpYW1vbmRfY2xlYW4KYGBgCgpgYGB7cn0KZ2dwYWlycyhkaWFtb25kX2NsZWFuLCBwcm9ncmVzcyA9IEZBTFNFKQpgYGAKCmBgYHtyfQpkaWFtb25kX2NsZWFuICU+JSAKICBnZ3Bsb3QoKSArCiAgYWVzKHggPSBwcmljZSwgeSA9IGNhcmF0KSArCiAgZ2VvbV9wb2ludCgpCmBgYAoKYGBge3J9Cgptb2RlbCA8LSBsbShwcmljZSB+IGNhcmF0LCBkYXRhID0gZGlhbW9uZF9jbGVhbikKYGBgCgpgYGB7cn0KYXV0b3Bsb3QobW9kZWwpCmBgYAoKYGBge3J9CnN1bW1hcnkobW9kZWwpCmBgYAoKCmBgYHtyfQpkaWFtb25kICU+JSAKICBkaXN0aW5jdChjdXQpCmBgYAoKYGBge3J9CmxtKHByaWNlIH4gY3V0LCBkYXRhID0gZGlhbW9uZCkKYGBgCgpgYGB7cn0KZGlhbW9uZCAlPiUgCiAgZGlzdGluY3QoY2xhcml0eSkKYGBgCmBgYHtyfQoKbG0ocHJpY2UgfiBjbGFyaXR5LCBkYXRhID0gZGlhbW9uZCkKCmBgYAoKYGBge3J9CmRpYW1vbmQgJT4lIAogIGRpc3RpbmN0KGNvbG9yKQpgYGAKCmBgYHtyfQoKbG0ocHJpY2UgfiBjb2xvciwgZGF0YSA9IGRpYW1vbmQpCgpgYGAKCgpgYGB7cn0KZGlhbW9uZF9kdW1teSA8LSBkaWFtb25kX2NsZWFuICU+JQogIGZhc3REdW1taWVzOjpkdW1teV9jb2xzKHNlbGVjdF9jb2x1bW5zID0gImN1dCIsIHJlbW92ZV9maXJzdF9kdW1teSA9IFRSVUUsIHJlbW92ZV9zZWxlY3RlZF9jb2x1bW5zID0gVFJVRSkgJT4lIAogICBmYXN0RHVtbWllczo6ZHVtbXlfY29scyhzZWxlY3RfY29sdW1ucyA9ICJjbGFyaXR5IiwgcmVtb3ZlX2ZpcnN0X2R1bW15ID0gVFJVRSwgcmVtb3ZlX3NlbGVjdGVkX2NvbHVtbnMgPSBUUlVFKSAlPiUKICAgZmFzdER1bW1pZXM6OmR1bW15X2NvbHMoc2VsZWN0X2NvbHVtbnMgPSAiY29sb3IiLCByZW1vdmVfZmlyc3RfZHVtbXkgPSBUUlVFLCByZW1vdmVfc2VsZWN0ZWRfY29sdW1ucyA9IFRSVUUpIAogIAoKZGlhbW9uZF9kdW1teQpgYGAKaGFzIGRyb3BwZWQgb25lIGNvbHVtbiBhcyBwZXIgcmVxdWlyZWQgaW4gYWxsIGNhc2VzLgpgYGB7cn0KbW9kZWwgPC0gbG0ocHJpY2UgfiBjYXJhdCwgZGF0YSA9IGRpYW1vbmRfZHVtbXkpCmBgYApgYGB7cn0Kc3VtbWFyeShtb2RlbCkKYGBgCgpgYGB7cn0KbW9kZWwyIDwtIGxtKHByaWNlIH4gY2FyYXQgKyBjbGFyaXR5ICsgY29sb3IgKyBjdXQsIGRhdGEgPSBkaWFtb25kX2NsZWFuKQpgYGAKYGBge3J9CnN1bW1hcnkobW9kZWwyKQpgYGAKCg==</div>
 
 
 
