@@ -1,0 +1,38 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+I want to predict how well 6 year-olds are going to do in their final school exams. Using the following variables am I likely under-fitting, fitting well or over-fitting? Postcode, gender, reading level, score in maths test, date of birth, family income.
+
+Overfitting I would think. Because there are variables such as postcode and family income there is bias and would not account for the reality of positive outcomes from low family income and less opulent areas.
+
+If I have two models, one with an AIC score of 34,902 and the other with an AIC score of 33,559 which model should I use?
+
+I would us the model that has the AIC score which is lowest.
+
+I have two models, the first with: r-squared: 0.44, adjusted r-squared: 0.43. The second with: r-squared: 0.47, adjusted r-squared: 0.41. Which one should I use?
+
+
+I would use the the one with the highest r squared value ie 0.47
+
+I have a model with the following errors: RMSE error on test set: 10.3, RMSE error on training data: 10.4. Do you think this model is over-fitting?
+
+no I think it is underfitting as they are very similar
+
+How does k-fold validation work?
+
+Splits the data into a number of predefined bins where one (or more) is the test set and the reamining ones are the training set. This is repeated where the the second bin now becomes the test set while the other 9 are the training set. IT repeats until all bins have been used as a test set.
+
+
+What is a validation set? When do you need one?
+
+A validation set a set of data that is set aside to be used to validate the model. The data included in it is never used in the training set.
+
+Describe how backwards selection works.
+
+Start with an large model and work backwards by taking out variables 
+
+Describe how best subset selection works.
+
+start with one variable and add variables until well fitted.
