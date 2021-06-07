@@ -27,7 +27,7 @@ Splits the data into a number of predefined bins where one (or more) is the test
 
 What is a validation set? When do you need one?
 
-A validation set a set of data that is set aside to be used to validate the model. The data included in it is never used in the training set.
+A validation set a set of data that is set aside to be used to validate the multiple models as to which is the best. The data included in it is never used in the training or test sets for any of the models.
 
 Describe how backwards selection works.
 
@@ -36,3 +36,73 @@ Start with an large model and work backwards by taking out variables
 Describe how best subset selection works.
 
 start with one variable and add variables until well fitted.
+
+
+```{r}
+library(tidyverse)
+library(janitor)
+library(car)
+library(modelr)
+library(GGally)
+library(caTools)
+library(leaps)
+```
+
+```{r}
+
+
+avocado_price <- read_csv("data/avocado.csv") %>% 
+  clean_names() %>% 
+  select(-c(x1, date, region)) %>% 
+  mutate(type = as_factor(type)) %>% 
+  mutate(type = ifelse(type == "conventional",1,0)) %>% 
+  mutate(type = as.logical(type))
+  
+  
+
+glimpse(avocado_price)
+                      
+```
+
+Split the data into test and training 
+
+
+```{r}
+n_data <- nrow(avocado_price)
+
+test_index <- sample(1:n_data, size = n_data*0.2) #80/20 split
+
+test <- avocado_price %>% slice(test_index)
+
+train <- avocado_price %>% slice(-test_index)
+```
+
+first predictor
+
+```{r}
+train %>%
+  ggpairs(aes(colour = type, alpha = 0.5), progress = FALSE)
+```
+
+```{r}
+regsubsets_foward <- regsubsets(average_price ~ ., data = train, nvmax = 8, method = "forward")
+```
+
+```{r}
+summary(regsubsets_foward)
+```
+
+```{r}
+plot(regsubsets_foward, scale = "adjr2")
+```
+
+```{r}
+plot(regsubsets_foward, scale = "bic")
+```
+
+```{r}
+model1 <- lm(average_price ~ x4046 + x4225 + x4770 + type + year, data = train)
+
+summary(model1)
+```
+
