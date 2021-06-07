@@ -101,8 +101,14 @@ plot(regsubsets_foward, scale = "bic")
 ```
 
 ```{r}
+
+library(ggfortify)
 model1 <- lm(average_price ~ x4046 + x4225 + x4770 + type + year, data = train)
 
 summary(model1)
+```
+
+```{r}
+autoplot(model1)
 ```
 
