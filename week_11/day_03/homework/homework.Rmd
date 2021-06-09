@@ -63,6 +63,15 @@ clustered_customers %>%
 ```{r}
 clustered_customers %>% 
   group_by(.cluster) %>% 
-  summarise(mean_age = mean(age))
+  summarise(mean_age = mean(customers$age))
+```
+#something weird with the figures for age
+
+
+```{r}
+clustered_customers %>% 
+  ggplot() +
+  aes(x = spending_score_1_100, y = annual_income_k, colour = .cluster) +
+  geom_point()
 ```
 
