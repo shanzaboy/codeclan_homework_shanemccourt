@@ -23,12 +23,12 @@ titanic_set <- titanic_set[shuffle_index, ]
 
 ```{r}
 titanic_set <- titanic_set %>% 
-  filter(survived == "1") %>% 
+  
   drop_na(age) %>% 
   mutate(age_status = ifelse(age<16,"child","adult")) %>% 
   select(-c(X1, passenger_id, name, ticket, fare, cabin)) %>% 
   mutate(sib_sp =  if_else(sib_sp == 1, "yes", "no")) %>% 
-  mutate(survived = if_else(survived == 1, "yes", "no")) %>% 
+  mutate(survived_flag = if_else(survived == 1, "yes", "no")) %>% 
    mutate_if(is_character, as_factor) %>%
   clean_names()
   
@@ -36,7 +36,9 @@ titanic_set <- titanic_set %>%
 
 titanic_set
 
-
+# check balanced sets
+titanic_test %>%
+ janitor::tabyl(survived)
 ```
 ```{r}
 split1 <- titanic_set %>% 

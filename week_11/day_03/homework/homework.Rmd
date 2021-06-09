@@ -1,0 +1,68 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(CodeClanData)
+library(janitor)
+library(cluster)
+library(factoextra)
+library(dendextend)
+library(broom)
+```
+
+```{r}
+customers <- read_csv("data/mall_customers.csv") %>% 
+   clean_names() %>%
+  select(-c(customer_id, gender))
+ 
+
+customers_scale <- customers %>% 
+   mutate(across(everything(), scale))
+```
+
+
+```{r}
+customers %>% 
+  group_by(age) %>% 
+  summarise(mean_age = mean(age))
+```
+
+```{r}
+clustered <- kmeans(customers_scale, 6, nstart = 25)
+
+glance(clustered)
+```
+
+```{r}
+fviz_nbclust(customers_scale, kmeans, method = "wss", nstart = 25)
+```
+
+```{r}
+fviz_nbclust(customers_scale, kmeans, method = "silhouette", nstart = 25)
+```
+
+```{r}
+fviz_nbclust(customers_scale, kmeans, method = "gap_stat", nstart = 25)
+```
+
+```{r}
+clustered_customers <- augment(clustered, customers_scale)
+```
+
+```{r}
+clustered_customers %>% 
+  ggplot() +
+  aes(x = age, y = annual_income_k, colour = .cluster) +
+  geom_point()
+  
+```
+
+```{r}
+clustered_customers %>% 
+  group_by(.cluster) %>% 
+  summarise(mean_age = mean(age))
+```
+
