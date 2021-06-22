@@ -206,7 +206,7 @@ daily_tsibble %>%
 fit <- daily_tsibble %>%
   model(
     snaive = SNAIVE(daily_cases),
-    mean_model = PROPHET(daily_cases),
+    mean_model = MEAN(daily_cases),
     arima = ARIMA(daily_cases)
   )
 fit
