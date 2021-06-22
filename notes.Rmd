@@ -1,0 +1,23 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+library(fastDummies) # to create dummy variables
+library(GGally) # to create ggpairs/correlation plots
+library(ggfortify) # to create autoplots
+library(modelr) # to add model predictions into dataframe
+library(relaimpo) # contains functions that calculates the relative importance of each variable. 
+library(tidyverse) # if you dont know what is in tidyverse by this point you are in trouble.
+library(leaps) # contains regsubset function
+library(lm.beta) # Coeifficeient output for linear models
+library(caret) # k fold cross validation
+library(broom) # tidy, glance & augment functions
+library(pROC) # ROC curves
+library(rpart) # decision trees
+library(rpart.plot) # plotting decision trees
+library(yardstick) # confusion matrix
+library(cluster) # cluster analysis hclust
+library(factoextra) # fviz_nbclust functions
+library(dendextend) # dendrograms
+library(tidytext) # text mining

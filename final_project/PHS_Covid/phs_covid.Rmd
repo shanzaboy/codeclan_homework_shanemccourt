@@ -1,0 +1,228 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(janitor)
+library(lubridate)
+library(grid)
+library(leaflet)
+library(here)
+library(rmapshaper)
+library(sf)
+library(ggplot2)
+library(viridis)
+library(fable)
+library(tsibble)
+library(urca)
+
+
+```
+
+```{r}
+daily_cum <- read_csv("data/daily_cuml_scot_20210620.csv")
+trend_ages <- read_csv("data/trend_agesex_20210620.csv")
+trend_simd <- read_csv("data/trend_simd_20210620.csv")
+
+
+```
+
+
+```{r}
+
+daily_clean <- daily_cum %>% 
+  clean_names() %>% 
+  mutate(date = ymd(date)) %>% 
+  filter(date <= "2021-06-18")
+  
+ 
+  
+daily_clean
+```
+
+```{r}
+plot1 <- daily_clean %>% 
+  filter(date <= "2021-06-18") %>% 
+  ggplot() +
+  aes(x = date, y = daily_cases) +
+  geom_col() 
+  
+  
+ 
+```
+
+```{r}
+plot2 <- daily_clean %>% 
+  ggplot() +
+  aes(x = date, y = deaths) +
+  geom_line() 
+```
+
+
+```{r}
+grid.newpage()
+grid.draw(rbind(ggplotGrob(plot1), ggplotGrob(plot2), size = "last"))
+```
+
+
+```{r}
+trend_ages
+```
+
+```{r}
+trend_ages_clean <- trend_ages %>% 
+  clean_names() %>% 
+  mutate(date = ymd(date)) %>% 
+  filter(date <= "2021-06-18") 
+  
+  
+```
+
+
+```{r}
+trend_ages_clean %>% 
+  group_by(date, sex) %>% 
+  summarise(tot_daily_positive = sum(daily_positive)) %>% 
+  ggplot() +
+  aes(x = date, y = tot_daily_positive, colour = sex) +
+  geom_line() +
+  geom_smooth(method = "loess", se = FALSE)
+```
+
+
+
+#spatial stuff 
+```{r}
+# r_birthplace_map <- leaflet() %>%
+#   addTiles() %>%  # use the default base map which is OpenStreetMap tiles
+#   addMarkers(lng=174.768, lat=-36.852,
+#              popup="The birthplace of R")
+# r_birthplace_map
+```
+
+```{r}
+
+trend_simd %>% 
+  clean_names()
+
+
+```
+
+```{r}
+# ggplot(data = north_carolina, aes(fill = SID74)) + 
+#   geom_sf() +
+#   theme_bw()
+```
+
+```{r}
+simp_hb_bdry <- st_read(here::here("data/boundary_data/SG_NHS_HealthBoards_2019 (1)/SG_NHS_HealthBoards_2019.shp"))
+simp_hb_bdry <- ms_simplify(simp_hb_bdry, keep = 0.001)
+
+# simp_data_zone_bdry <- st_read(here("raw_data/boundary_data/SG_DataZoneBdry_2011/SG_DataZone_Bdry_2011.shp"))
+# simp_data_zone_bdry <- ms_simplify(simp_data_zone_bdry, keep = 0.005)
+```
+
+```{r}
+cases_by_hb <- read_csv("data/total_cases_by_hb_20210621.csv") %>% 
+  clean_names()
+ 
+```
+
+```{r}
+cases_by_hb_select <- cases_by_hb %>% 
+  select(hb, hb_name, new_positive, total_cases) 
+ 
+```
+
+```{r}
+joined_hb <- left_join(simp_hb_bdry, cases_by_hb_select, by = c("HBCode" = "hb"))
+```
+
+
+
+```{r}
+ggplot(joined_hb, aes(fill = total_cases))+
+  geom_sf(color = "black", size = 0.1) +
+  theme_void() +
+  labs(
+      title = "",
+      subtitle = "",
+      fill = "Total COVID"
+    )+
+   scale_fill_viridis()
+    
+   
+ 
+```
+
+```{r}
+cases_by_hb_select %>% 
+  arrange(desc(total_cases)) %>% 
+  slice_head(n=4) 
+  
+```
+
+```{r}
+cases_ca <- read_csv("data/trend_ca_20210621 (3).csv") %>% 
+  clean_names()
+```
+
+```{r}
+ca_clean <- cases_ca %>% 
+  filter(date > 20210501) %>% 
+  group_by(date, ca_name) %>% 
+  summarise(daily_positive)
+```
+
+```{r}
+ca_clean%>% 
+  ggplot()+
+  aes(x = ymd(date), y = daily_positive, colour = ca_name) +
+  geom_point()
+
+```
+
+```{r}
+ca_clean_sort <- ca_clean %>% 
+   arrange(desc(daily_positive))
+
+ca_clean_sort
+
+```
+
+```{r}
+
+daily_tsibble <- daily_clean %>% 
+  as_tsibble(index = date) 
+
+```
+```{r}
+daily_tsibble %>% 
+  autoplot(daily_cases)
+```
+```{r}
+fit <- daily_tsibble %>%
+  model(
+    snaive = SNAIVE(daily_cases),
+    mean_model = PROPHET(daily_cases),
+    arima = ARIMA(daily_cases)
+  )
+fit
+```
+
+```{r}
+forecast_1 <- fit %>%
+  fabletools::forecast(h = 100)
+forecast_1
+```
+
+```{r}
+forecast_1 %>%
+  autoplot(daily_tsibble) +
+  ggtitle("Forecasts for COVID infections") +
+  xlab("Year") +
+  guides(colour = guide_legend(title = "Forecast"))
+```
+
